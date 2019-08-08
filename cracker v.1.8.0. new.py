@@ -244,8 +244,8 @@ class Ui_MainWindow(object):
         self.actionExit.setShortcut(_translate("MainWindow", "Esc"))
 
     def start_cracking(self):
-        """
         # TO DO: add documentation
+        """
         :return:
         """
 
