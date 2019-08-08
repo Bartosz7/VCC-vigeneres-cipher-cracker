@@ -173,6 +173,7 @@ class Ui_MainWindow(object):
         self.menuHelp.addAction(self.actionExit)
         self.menubar.addAction(self.menuHelp.menuAction())
         ##################################################################################
+        # TODO: play with style
         normal_style = "color: white; background-color: gray"
         # Icon at the top bar
         icon = QtGui.QIcon("wasp.png")
@@ -244,7 +245,7 @@ class Ui_MainWindow(object):
         self.actionExit.setShortcut(_translate("MainWindow", "Esc"))
 
     def start_cracking(self):
-        # TO DO: add documentation
+        # TODO: add documentation
         """
         :return:
         """
@@ -331,6 +332,7 @@ class Ui_MainWindow(object):
         repeat_keys = list(repeat_result.keys())  # list of repeating fragments
         repeat_values = list(repeat_result.values())  # list of their appearings
 
+        # FIXME: there is a problem with creating table for small texts
         # Creating a Table - basic, headers and first 3 columns
         try:
             self.tableWidget = QTableWidget()
