@@ -7,7 +7,6 @@ import os, traceback, sys, time, string
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidget,QTableWidgetItem
 from datetime import datetime, timedelta
-from math import sqrt
 from collections import Counter, OrderedDict
 from math_help import divisors, GCD, find_distance, transformer
 #########################################CONSTANTS############################################
