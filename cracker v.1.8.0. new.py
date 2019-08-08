@@ -8,7 +8,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidget,QTableWidgetItem
 from datetime import datetime, timedelta
 from collections import Counter, OrderedDict
-from math_help import divisors, GCD, find_distance, transformer
+from funcs import divisors, GCD, find_distance, transformer
 #########################################CONSTANTS############################################
 version = "1.7.7"
 language = "English" # option???
