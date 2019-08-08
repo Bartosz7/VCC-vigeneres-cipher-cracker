@@ -627,8 +627,6 @@ class Ui_MainWindow(object):
         self.textBrowser.setText(copy)
         self.label_fs.setText("Font size: "+str(size))
 
-#################################################FUNCTIONS############################################
-
 ####################################FILE EXECUTION###################################################
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
