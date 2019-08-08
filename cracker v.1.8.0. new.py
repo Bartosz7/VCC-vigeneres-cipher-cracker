@@ -245,7 +245,7 @@ class Ui_MainWindow(object):
 
     def start_cracking(self):
         """
-
+        # TO DO: add documentation
         :return:
         """
 
