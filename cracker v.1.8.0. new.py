@@ -2,7 +2,7 @@
 # Form implementation generated from reading ui file 'cracker1.ui'
 # Created by: PyQt5 UI code generator 5.12.1
 # WARNING! All changes made in this file will be lost!
-#####################################LIBRARIES########################################
+#########################################LIBRARIES########################################
 import os, traceback, sys, time, string
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidget,QTableWidgetItem
@@ -10,15 +10,16 @@ from datetime import datetime, timedelta
 from collections import Counter, OrderedDict
 from funcs import divisors, GCD, find_distance, transformer
 #########################################CONSTANTS############################################
-version = "1.7.7"
-language = "English" # option???
+# Language and version
+version = "1.8.0"
+language = "English"
 
 # Local time / Start time of format: day-month-year hour-minute-second
 time_local = time.strftime("%d-%m-%Y %H-%M-%S ", time.localtime())
 
 # Alphabets
 alphabet_capital_eng = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"     # English Capital Alphabet
-alphabet_lowercase_eng = alphabet_capital_eng.lower()   # English Lower Letters
+alphabet_lowercase_eng = alphabet_capital_eng.lower()   # English Small Letters
 digits = "0123456789"                                   # Digits
 punctuation_marks = ",.?!()[]{}:;-"                     # Punctuation marks
 
@@ -53,12 +54,15 @@ class Ui_MainWindow(object):
     """
 
     def setupUi(self, MainWindow):
+
+        # MainWindow properties
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(639, 343)
         MainWindow.setMaximumSize(639, 343)
         MainWindow.setMinimumSize(639, 343)
         MainWindow.setWindowTitle("Vigenere's Cipher Cracker")
 
+        # Main GUI Look
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -172,30 +176,32 @@ class Ui_MainWindow(object):
         self.menuHelp.addAction(self.actionAuthor_License)
         self.menuHelp.addAction(self.actionExit)
         self.menubar.addAction(self.menuHelp.menuAction())
-        ##################################################################################
+
+        # Test
+        self.button_new = QtWidgets.QPushButton(MainWindow)
+        self.button_new.setText("Try me!")
+
+        # Styling
         # TODO: play with style
         normal_style = "color: white; background-color: gray"
-        # Icon at the top bar
+
+        # Icon and window title
         icon = QtGui.QIcon("wasp.png")
         MainWindow.setWindowIcon(icon)
-        MainWindow.setWindowTitle("VCC Vigenere's Cipher Cracker ")
-        #self.centralwidget.setStyleSheet("background-image: url(test.jpg)")
-        #self.slider.setStyleSheet(normal_style)
-        #self.groupBox_Control_Panel.setStyleSheet("background-color: white")
-        self.textBrowser.setStyleSheet("selection-color: white; "
-                                       "selection-background-color: dark blue;"
-                                       "color: black"
-                                        )
-        #########################################################################################
-        self.label_fs = QtWidgets.QLabel (MainWindow)
-        self.label_fs.setText("Font size: 8")
-        self.label_fs.move(180, 24)
-        self.label_fs.show()
-        ##########################################################################################
+        MainWindow.setWindowTitle("VCC Vigenere's Cipher Cracker v.1.8.0")
+
+        # Button for clearing
         self.btn_clear = QtWidgets.QPushButton(self.centralwidget)
         self.btn_clear.setGeometry(QtCore.QRect(360, 9, 51, 21))
         self.btn_clear.setObjectName("btn_clear")
         self.btn_clear.raise_()
+
+        # Font size label
+        self.label_fs = QtWidgets.QLabel(MainWindow)
+        self.label_fs.setText("Font size: 8")
+        self.label_fs.move(180, 24)
+        self.label_fs.show()
+
         # New slider for Font size
         self.slider = QtWidgets.QSlider(MainWindow)
         self.slider.setFixedWidth(100)
@@ -205,11 +211,12 @@ class Ui_MainWindow(object):
         self.slider.setOrientation(QtCore.Qt.Horizontal)
         self.slider.move(250, 32)
         self.slider.show()
-        # Default values
+
+        # Spinboxes default values
         self.spinBox.setMinimum(2)
         self.spinBox_2.setMinimum(2)
-        self.spinBox.setValue(3)  # MINLEN
-        self.spinBox_2.setValue(2)# MINCNT
+        self.spinBox.setValue(3)        # MINLEN
+        self.spinBox_2.setValue(2)      # MINCNT
 
         # Retranslation and connecting SIGNALS
         self.retranslateUi(MainWindow)
@@ -219,6 +226,7 @@ class Ui_MainWindow(object):
         self.btn_open.clicked.connect(self.open_text)
         self.btn_clear.clicked.connect(self.textBrowser.clear)
         self.slider.valueChanged.connect(self.change_font_size)
+        self.button_new.clicked.connect(self.new_func)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -629,6 +637,9 @@ class Ui_MainWindow(object):
         self.textBrowser.setText(copy)
         self.label_fs.setText("Font size: "+str(size))
 
+    def new_func(self):
+        print(self.textBrowser.isBackwardAvailable())
+        self.textBrowser.backward()
 ####################################FILE EXECUTION###################################################
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
