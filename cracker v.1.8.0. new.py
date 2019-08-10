@@ -40,6 +40,10 @@ char_stats_eng = [0.08167, 0.01492, 0.02782, 0.04253, 0.12702, 0.02228,  # A B C
                   0.06327, 0.09056, 0.02758, 0.00978, 0.02360, 0.00150,  # S T U V W X
                   0.01974, 0.00074]                                      # Y Z
 
+
+
+# TODO: attach a new object to this option
+key_mode = 1 # 1 or 0, 0 for one, and 1 for several
 ###################################GUI AND MAIN CLASS####################################
 class Ui_MainWindow(object):
     """
@@ -250,6 +254,7 @@ class Ui_MainWindow(object):
 
     def start_cracking(self):
         # TODO: add documentation
+        # TODO: add option Handling large texts --> by dividing into smaller pieces
         """
         :return:
         """
@@ -273,7 +278,6 @@ class Ui_MainWindow(object):
         MINLEN = self.spinBox.value()           # minimal length of repeating fragments
         MINCNT = self.spinBox_2.value()         # minimal number of appearings of repeating fragments
         show_table = self.checkBox.isChecked()
-        password_mode = 'several' #/'one'
 
         # Get text for analysis
         ciphergram = self.textBrowser.toPlainText()
@@ -290,12 +294,12 @@ class Ui_MainWindow(object):
         try:
             repeat_result = self.subfind(new_ciphergram, MINLEN, MINCNT) # Returns a dict with repeating fragments and number of their appearings
             key_length = self.create_table(new_ciphergram, repeat_result, show_table)
+
         except Exception as e:
             print(e)
-        # error if wrong value is given
 
         # Real cracking: statistical analysis using least-squares method
-        key_word = self.decoder(key_length, new_ciphergram) # decoder -> mono_crack --> password letter by letter
+        key_word = self.decoder(key_length, new_ciphergram, key_mode) # decoder -> mono_crack --> password letter by letter
 
         # Decoding whole text using cracked password
         try:
@@ -467,13 +471,14 @@ class Ui_MainWindow(object):
             self.progressbar.setValue(progress)
         return d
 
-    def decoder(self, key_length, ciphergram):
+    def decoder(self, key_length, ciphergram, key_mode):
         """
 
         :param key_length:
         :param ciphergram:
         :return:
         """
+        password = ''
         password_list = []
         probability_list = []
 
@@ -481,33 +486,25 @@ class Ui_MainWindow(object):
             what_to_crack = ""
             for i2 in range(i, int(len(ciphergram)), int(key_length)):
                     what_to_crack += ciphergram[i2]
-            new1 = self.crack_mono(what_to_crack)
-            password_list.append(new1[0])
-            probability_list.append(new1[1])
+            new1 = self.crack_mono(what_to_crack, key_mode)
+            if key_mode == 0:
+                password += new1
+            else: # key_mode == 1
+                password_list.append(new1[0])
+                probability_list.append(new1[1])
+
+        if key_mode == 0:
+            return password
 
         try:
-            print(len(password_list))
-            print(probability_list)
-            password_list = list(product(password_list[0],
-                                         password_list[1],
-                                         password_list[2],
-                                         password_list[3],
-                                         password_list[4],
-                                         password_list[5]))
-            probability_list = list(product(probability_list[0],
-                                            probability_list[1],
-                                            probability_list[2],
-                                            probability_list[3],
-                                            probability_list[4],
-                                            probability_list[5]))
+            password_list = list(product(*password_list))
+            probability_list = list(product(*probability_list))
             new_probability_list = []
             for el in probability_list:
                 p = 1
                 for el2 in el:
                     p *= el2
                 new_probability_list.append(p)
-
-            print(new_probability_list)
 
             new_password_list = []
             for el in password_list:
@@ -520,12 +517,11 @@ class Ui_MainWindow(object):
                 if el in data:
                     print("ADDING")
                     newer_password_list.append(el)
-                    QtWidgets.QApplication.processEvents ()
+                    QtWidgets.QApplication.processEvents()
 
-            print(new_password_list)
-            print(len(new_password_list))
+            print("Possible combinations: "+str(len(new_password_list)))
+            print("Possible passwords:    "+str(len(newer_password_list)))
             print(newer_password_list)
-            print(len(newer_password_list))
 
             brand_list = []
             for el in newer_password_list:
@@ -535,15 +531,16 @@ class Ui_MainWindow(object):
             for el in brand_list:
                 print(newer_password_list[new_probability_list.index(el)], el)
 
+
+        # TODO: make a dialog with all possibilities
+        # 1. show possible passwords and their probability
+        # 2. let choose one / or several / or all passwords / combinations WITH WARNING OF LONG PROCESS
+        # 3. let to choose if the programme should check for us the text
+
         except Exception as e:
             print(e)
-        #password_list = list(product(el for el in password_list))
-        #print(password_list)
 
-        key_word = 'bla'
-        return key_word
-
-    def crack_mono(self, file):
+    def crack_mono(self, file, key_mode):
         """
         Cracks mono-alphabetical ciphers using method of cryptoanalytic statistical analisys
         Statistic function finds the key by comparing frequency of chars in ciphergram to frequency of letters
@@ -575,21 +572,23 @@ class Ui_MainWindow(object):
             results.append(round(wynik, 6))
             difference = []
 
-        #
-        list_3 = []
-        list_4 = []
-        for el in sorted(results)[0:4]:
-            list_4.append(el)
-            list_3.append(alphabet_capital_eng[(26 - results.index(el)) % 26])
-        return [list_3, list_4]
+        if key_mode == 0:
+            # Sorting and calculating the smallest difference and nearest key
+            # Finding best mono position transformation
+            best_fit = (sorted(results))[0]
+            best_fit = results.index(best_fit)
+            # Decoding letter of key_word
+            key_char = alphabet_capital_eng[(26 - best_fit) % 26]
+            return key_char
 
-        # Sorting and calculating the smallest difference and nearest key
-        # Finding best mono position transformation
-        #best_fit = (sorted(results))[0]
-        #best_fit = results.index(best_fit)
-        # Decoding letter of key_word
-        #key_char = alphabet_capital_eng[(26 - best_fit) % 26]
-        #return key_char
+        else: # key_mode == 1
+            list_3 = []
+            list_4 = []
+            # TODO: 4 below to be changed to variable
+            for el in sorted(results)[0:4]:
+                list_4.append(el)
+                list_3.append(alphabet_capital_eng[(26 - results.index(el)) % 26])
+            return [list_3, list_4]
 
     def decrypt(self, text, password):
         """
