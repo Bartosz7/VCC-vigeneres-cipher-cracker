@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import QTableWidget,QTableWidgetItem
 from datetime import datetime, timedelta
 from collections import Counter, OrderedDict
 from funcs import divisors, GCD, find_distance, transformer
+from itertools import product
 #########################################CONSTANTS############################################
 # Language and version
 version = "1.8.0"
@@ -272,6 +273,7 @@ class Ui_MainWindow(object):
         MINLEN = self.spinBox.value()           # minimal length of repeating fragments
         MINCNT = self.spinBox_2.value()         # minimal number of appearings of repeating fragments
         show_table = self.checkBox.isChecked()
+        password_mode = 'several' #/'one'
 
         # Get text for analysis
         ciphergram = self.textBrowser.toPlainText()
@@ -472,14 +474,73 @@ class Ui_MainWindow(object):
         :param ciphergram:
         :return:
         """
-        lengths = []
-        key_word = ""
+        password_list = []
+        probability_list = []
+
         for i in range(0, int(key_length)):
             what_to_crack = ""
             for i2 in range(i, int(len(ciphergram)), int(key_length)):
-                what_to_crack += ciphergram[i2]
-            key_word += str(self.crack_mono(what_to_crack))
+                    what_to_crack += ciphergram[i2]
+            new1 = self.crack_mono(what_to_crack)
+            password_list.append(new1[0])
+            probability_list.append(new1[1])
 
+        try:
+            print(len(password_list))
+            print(probability_list)
+            password_list = list(product(password_list[0],
+                                         password_list[1],
+                                         password_list[2],
+                                         password_list[3],
+                                         password_list[4],
+                                         password_list[5]))
+            probability_list = list(product(probability_list[0],
+                                            probability_list[1],
+                                            probability_list[2],
+                                            probability_list[3],
+                                            probability_list[4],
+                                            probability_list[5]))
+            new_probability_list = []
+            for el in probability_list:
+                p = 1
+                for el2 in el:
+                    p *= el2
+                new_probability_list.append(p)
+
+            print(new_probability_list)
+
+            new_password_list = []
+            for el in password_list:
+                new_password_list.append(("".join(el)).lower())
+
+            newer_password_list = []
+            file = open("dict_eng.txt", "r")
+            data = file.read()
+            for el in new_password_list:
+                if el in data:
+                    print("ADDING")
+                    newer_password_list.append(el)
+                    QtWidgets.QApplication.processEvents ()
+
+            print(new_password_list)
+            print(len(new_password_list))
+            print(newer_password_list)
+            print(len(newer_password_list))
+
+            brand_list = []
+            for el in newer_password_list:
+                brand_list.append(new_probability_list[newer_password_list.index(el)])
+            brand_list = sorted(brand_list)
+
+            for el in brand_list:
+                print(newer_password_list[new_probability_list.index(el)], el)
+
+        except Exception as e:
+            print(e)
+        #password_list = list(product(el for el in password_list))
+        #print(password_list)
+
+        key_word = 'bla'
         return key_word
 
     def crack_mono(self, file):
@@ -520,15 +581,15 @@ class Ui_MainWindow(object):
         for el in sorted(results)[0:4]:
             list_4.append(el)
             list_3.append(alphabet_capital_eng[(26 - results.index(el)) % 26])
-        print(list_3, list_4)
+        return [list_3, list_4]
 
         # Sorting and calculating the smallest difference and nearest key
         # Finding best mono position transformation
-        best_fit = (sorted(results))[0]
-        best_fit = results.index(best_fit)
+        #best_fit = (sorted(results))[0]
+        #best_fit = results.index(best_fit)
         # Decoding letter of key_word
-        key_char = alphabet_capital_eng[(26 - best_fit) % 26]
-        return key_char
+        #key_char = alphabet_capital_eng[(26 - best_fit) % 26]
+        #return key_char
 
     def decrypt(self, text, password):
         """
