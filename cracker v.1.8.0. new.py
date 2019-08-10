@@ -177,10 +177,6 @@ class Ui_MainWindow(object):
         self.menuHelp.addAction(self.actionExit)
         self.menubar.addAction(self.menuHelp.menuAction())
 
-        # Test
-        self.button_new = QtWidgets.QPushButton(MainWindow)
-        self.button_new.setText("Try me!")
-
         # Styling
         # TODO: play with style
         normal_style = "color: white; background-color: gray"
@@ -226,7 +222,6 @@ class Ui_MainWindow(object):
         self.btn_open.clicked.connect(self.open_text)
         self.btn_clear.clicked.connect(self.textBrowser.clear)
         self.slider.valueChanged.connect(self.change_font_size)
-        self.button_new.clicked.connect(self.new_func)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -470,6 +465,71 @@ class Ui_MainWindow(object):
             self.progressbar.setValue(progress)
         return d
 
+    def decoder(self, key_length, ciphergram):
+        """
+
+        :param key_length:
+        :param ciphergram:
+        :return:
+        """
+        lengths = []
+        key_word = ""
+        for i in range(0, int(key_length)):
+            what_to_crack = ""
+            for i2 in range(i, int(len(ciphergram)), int(key_length)):
+                what_to_crack += ciphergram[i2]
+            key_word += str(self.crack_mono(what_to_crack))
+
+        return key_word
+
+    def crack_mono(self, file):
+        """
+        Cracks mono-alphabetical ciphers using method of cryptoanalytic statistical analisys
+        Statistic function finds the key by comparing frequency of chars in ciphergram to frequency of letters
+        in the language (stat_chats); monoalphabetical statistic cracker with the use of least-squares regression
+        :param file: sub-ciphergram (cipher encrypted with one transformation value)
+        :return: transformation value
+        """
+        frequency = []
+        for letter in alphabet_capital_eng:
+            counter = 0
+            for el in file:
+                if el == letter:
+                    counter += 1
+            frequency.append(round(counter/len(file), 4))
+        difference = []
+        results = []
+        for el in range(0, 26):
+            # machine adding order
+            if el != 0:
+                frequency = transformer(frequency)
+            for el2 in range(0, 26):
+                counter_2 = 0
+                counter_2 = (char_stats_eng[el2] - frequency[el2]) ** 2
+                counter_2 = round(counter_2, 4)
+                difference.append(counter_2)
+            wynik = 0
+            for ok in range(26):
+                wynik = wynik + difference[ok]
+            results.append(round(wynik, 6))
+            difference = []
+
+        #
+        list_3 = []
+        list_4 = []
+        for el in sorted(results)[0:4]:
+            list_4.append(el)
+            list_3.append(alphabet_capital_eng[(26 - results.index(el)) % 26])
+        print(list_3, list_4)
+
+        # Sorting and calculating the smallest difference and nearest key
+        # Finding best mono position transformation
+        best_fit = (sorted(results))[0]
+        best_fit = results.index(best_fit)
+        # Decoding letter of key_word
+        key_char = alphabet_capital_eng[(26 - best_fit) % 26]
+        return key_char
+
     def decrypt(self, text, password):
         """
 
@@ -536,63 +596,6 @@ class Ui_MainWindow(object):
         except Exception as e:
             print(e)
 
-    def crack_mono(self, file):
-        """
-        Cracks mono-alphabetical ciphers using method of cryptoanalytic statistical analisys
-        Statistic function finds the key by comparing frequency of chars in ciphergram to frequency of letters
-        in the language (stat_chats); monoalphabetical statistic cracker with the use of least-squares regression
-        :param file: sub-ciphergram (cipher encrypted with one transformation value)
-        :return: transformation value
-        """
-        frequency = []
-        for letter in alphabet_capital_eng:
-            counter = 0
-            for el in file:
-                if el == letter:
-                    counter += 1
-            frequency.append(round(counter/len(file), 4))
-        difference = []
-        results = []
-        for el in range(0, 26):
-            # machine adding order
-            if el != 0:
-                frequency = transformer(frequency)
-            for el2 in range(0, 26):
-                counter_2 = 0
-                counter_2 = (char_stats_eng[el2] - frequency[el2]) ** 2
-                counter_2 = round(counter_2, 4)
-                difference.append(counter_2)
-            wynik = 0
-            for ok in range(26):
-                wynik = wynik + difference[ok]
-            results.append(round(wynik, 6))
-            difference = []
-
-        # Sorting and calculating the smallest difference and nearest key
-        # Finding best mono position transformation
-        best_fit = (sorted(results))[0]
-        best_fit = results.index(best_fit)
-        # Decoding letter of key_word
-        key_char = alphabet_capital_eng[(26 - best_fit) % 26]
-        return key_char
-
-    def decoder(self, key_length, ciphergram):
-        """
-
-        :param key_length:
-        :param ciphergram:
-        :return:
-        """
-        lengths = []
-        key_word = ""
-        for i in range(0, int(key_length)):
-            what_to_crack = ""
-            for i2 in range(i, int(len(ciphergram)), int(key_length)):
-                what_to_crack += ciphergram[i2]
-            key_word += str(self.crack_mono(what_to_crack))
-
-        return key_word
-
     # Buttons and GUI instant signals
     def open_text(self):
         """
@@ -637,9 +640,6 @@ class Ui_MainWindow(object):
         self.textBrowser.setText(copy)
         self.label_fs.setText("Font size: "+str(size))
 
-    def new_func(self):
-        print(self.textBrowser.isBackwardAvailable())
-        self.textBrowser.backward()
 ####################################FILE EXECUTION###################################################
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
@@ -649,6 +649,3 @@ if __name__ == "__main__":
     MainWindow.show()
     sys.exit(app.exec_())
 
-"""
-DRAFTS
-"""
