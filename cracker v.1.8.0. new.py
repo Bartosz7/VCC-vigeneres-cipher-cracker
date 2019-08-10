@@ -300,14 +300,19 @@ class Ui_MainWindow(object):
         key_word = self.decoder(key_length, new_ciphergram, key_mode) # decoder -> mono_crack --> password letter by letter
 
         # Decoding whole text using cracked password
-        try:
-            new_text = "Password: "+str(key_word) + "\n"
-            new_text += self.decrypt(ciphergram, key_word)
-            self.textBrowser.setText(new_text)
-            MainWindow.showMaximized()
+        if key_mode == 0:
+            try:
+                new_text = "Password: "+str(key_word) + "\n"
+                new_text += self.decrypt(ciphergram, key_word)
+                self.textBrowser.setText(new_text)
+                MainWindow.showMaximized()
 
-        except Exception as e:
-            print(e)
+            except Exception as e:
+                print(e)
+
+        #
+        if key_mode == 1:
+            print(key_word)
 
         self.reset_gui()
 
@@ -325,15 +330,6 @@ class Ui_MainWindow(object):
         repeat_keys = list(repeat_result.keys())  # list of repeating fragments
         repeat_values = list(repeat_result.values())  # list of their appearings
 
-        if len(repeat_result) == 0:
-            msgbox = QtWidgets.QMessageBox()
-            msgbox.setIcon(QtWidgets.QMessageBox.Warning)
-            msgbox.setWindowTitle('WARNING')
-            msgbox.setText('Unfortunately, there is too little information to crack the ciphergram')
-            msgbox.setStandardButtons(QtWidgets.QMessageBox.Ok)
-            msgbox.exec_()
-            return 0
-            # FIXME: there is a problem with creating table for small texts
         # Creating a Table - basic, headers and first 3 columns
         try:
             self.tableWidget = QTableWidget()
@@ -344,85 +340,92 @@ class Ui_MainWindow(object):
             self.tableWidget.setColumnWidth(0, 100)
             self.tableWidget.setColumnWidth(1, 50)
             self.tableWidget.setColumnWidth(2, 80)
+
+            # Check whether to show table
+            if show_table == True:
+                self.tableWidget.show()
+
+            # Setting first three columns name:length:number_of_appearings
+            for X in range(int(len(repeat_keys))):
+                list_1 = find_distance(new_ciphergram, repeat_keys[X], repeat_values[X] - 1)
+                if X == 0:
+                    max_list_1_length = len(list_1)
+                else:
+                    if len(list_1) > max_list_1_length:
+                        max_list_1_length = int(len(list_1))
+                self.tableWidget.setItem(X, 0, QTableWidgetItem(str(repeat_keys[X])))
+                self.tableWidget.setItem(X, 1, QTableWidgetItem(str(len(repeat_keys[X]))))
+                self.tableWidget.setItem(X, 2, QTableWidgetItem(str(repeat_values[X])))
+                for Y in range(len(list_1)):
+                    self.tableWidget.setItem(X, Y + 3, QTableWidgetItem(str(list_1[Y])))
+
+            # Creating place for GCD column
+            max_list_1_length += 3
+            self.tableWidget.setHorizontalHeaderItem(max_list_1_length, QTableWidgetItem ("GCD"))
+            self.tableWidget.setColumnWidth(max_list_1_length, 50)
+
+            # Setting factor columns
+            for i in range(3, max_list_1_length):
+                self.tableWidget.setHorizontalHeaderItem(i, QTableWidgetItem("Factors"))
+                self.tableWidget.setColumnWidth(i, 50)
+
+            # Calculating GCDs for each row and divisors for each row's GCD
+            for row in range(0, len(repeat_keys)):
+                list_2 = []
+                for col in range(3, max_list_1_length):
+                    try:
+                        item = self.tableWidget.item (row, col).text()
+                        item = int(item)
+                        list_2.append(item)
+                    except Exception as e:
+                        item = None
+                row_gcd = GCD(list_2)
+                self.tableWidget.setItem(row, max_list_1_length, QTableWidgetItem(str(row_gcd)))
+                self.tableWidget.setColumnWidth(max_list_1_length + 1, 500)
+                self.tableWidget.setHorizontalHeaderItem(max_list_1_length + 1, QTableWidgetItem("Divisors"))
+
+            # List for storing ALL divisors
+            list_of_divisors = []
+            for i in range(len(repeat_keys)):
+                x = self.tableWidget.item(i, max_list_1_length).text()
+                x = int(x)
+                s = ""
+                for el in divisors(x):
+                    if int(el) != 1:
+                        s += str(el) + " "
+                        list_of_divisors.append(el)
+                self.tableWidget.setItem(i, max_list_1_length + 1, QTableWidgetItem(s))
+
+            # Saving memory space
+            del s, x, row_gcd
+
+            # Checking for option
+            if show_table == True:
+                self.tableWidget.showMaximized()
+
+            # Counting divisors and sorting from largest number of appearings to smallest
+            x = Counter(list_of_divisors)
+            x = sorted(x.items(), key=lambda x: x[1], reverse=True)
+
+            # Message to give probable key length values
+            message_text = ""
+            message_text = "Programme suggests 5 most probable values of key length: " + "\n"
+            for i in range(5):
+                message_text += str(x[i][0])
+                if i != 4:
+                    message_text += ", "
+            message_text += "\n\n" + "Remember: keys of length 3 or less are rarely chosen"
+            message_text += "\n\n" + "Enter probable key length:"
+
         except Exception as e:
-            print ("Error occured while creating a table :" + "\n", e)
-            print ("CODE: 261-268")
-
-        # Check whether to show table
-        if show_table == True:
-            self.tableWidget.show()
-
-        # Setting first three columns name:length:number_of_appearings
-        for X in range(int(len(repeat_keys))):
-            list_1 = find_distance(new_ciphergram, repeat_keys[X], repeat_values[X] - 1)
-            if X == 0:
-                max_list_1_length = len(list_1)
-            else:
-                if len(list_1) > max_list_1_length:
-                    max_list_1_length = int(len(list_1))
-            self.tableWidget.setItem(X, 0, QTableWidgetItem(str(repeat_keys[X])))
-            self.tableWidget.setItem(X, 1, QTableWidgetItem(str(len(repeat_keys[X]))))
-            self.tableWidget.setItem(X, 2, QTableWidgetItem(str(repeat_values[X])))
-            for Y in range(len(list_1)):
-                self.tableWidget.setItem(X, Y + 3, QTableWidgetItem(str(list_1[Y])))
-
-        # Creating place for GCD column
-        max_list_1_length += 3
-        self.tableWidget.setHorizontalHeaderItem(max_list_1_length, QTableWidgetItem ("GCD"))
-        self.tableWidget.setColumnWidth(max_list_1_length, 50)
-
-        # Setting factor columns
-        for i in range(3, max_list_1_length):
-            self.tableWidget.setHorizontalHeaderItem(i, QTableWidgetItem("Factors"))
-            self.tableWidget.setColumnWidth(i, 50)
-
-        # Calculating GCDs for each row and divisors for each row's GCD
-        for row in range(0, len(repeat_keys)):
-            list_2 = []
-            for col in range(3, max_list_1_length):
-                try:
-                    item = self.tableWidget.item (row, col).text()
-                    item = int(item)
-                    list_2.append(item)
-                except Exception as e:
-                    item = None
-            row_gcd = GCD(list_2)
-            self.tableWidget.setItem(row, max_list_1_length, QTableWidgetItem(str(row_gcd)))
-            self.tableWidget.setColumnWidth(max_list_1_length + 1, 500)
-            self.tableWidget.setHorizontalHeaderItem(max_list_1_length + 1, QTableWidgetItem("Divisors"))
-
-        # List for storing ALL divisors
-        list_of_divisors = []
-        for i in range(len(repeat_keys)):
-            x = self.tableWidget.item(i, max_list_1_length).text()
-            x = int(x)
-            s = ""
-            for el in divisors(x):
-                if int(el) != 1:
-                    s += str(el) + " "
-                    list_of_divisors.append(el)
-            self.tableWidget.setItem(i, max_list_1_length + 1, QTableWidgetItem(s))
-
-        # Saving memory space
-        del s, x, row_gcd
-
-        # Checking for option
-        if show_table == True:
-            self.tableWidget.showMaximized()
-
-        # Counting divisors and sorting from largest number of appearings to smallest
-        x = Counter(list_of_divisors)
-        x = sorted(x.items(), key=lambda x: x[1], reverse=True)
-
-        # Message to give probable key length values
-        message_text = ""
-        message_text = "Programme suggests 5 most probable values of key length: " + "\n"
-        for i in range(5):
-            message_text += str(x[i][0])
-            if i != 4:
-                message_text += ", "
-        message_text += "\n\n" + "Remember: keys of length 3 or less are rarely chosen"
-        message_text += "\n\n" + "Enter probable key length:"
+            msgbox = QtWidgets.QMessageBox ()
+            msgbox.setIcon(QtWidgets.QMessageBox.Warning)
+            msgbox.setWindowTitle('WARNING')
+            msgbox.setText('Unfortunately, there is too little information to crack the ciphergram')
+            msgbox.setStandardButtons(QtWidgets.QMessageBox.Ok)
+            msgbox.exec_()
+            self.tableWidget.hide()
+            return 0
 
         dialog = QtWidgets.QInputDialog(MainWindow)
         key_length, ok = dialog.getInt(self.tableWidget, 'Probable key length: ', message_text)
@@ -500,7 +503,10 @@ class Ui_MainWindow(object):
 
             new_password_list = []
             for el in password_list:
-                new_password_list.append(("".join(el)).lower())
+                try:
+                    new_password_list.append(("".join(el)).lower())
+                except:
+                    None
 
             newer_password_list = []
             file = open("dict_eng.txt", "r")
@@ -520,8 +526,19 @@ class Ui_MainWindow(object):
                 brand_list.append(new_probability_list[newer_password_list.index(el)])
             brand_list = sorted(brand_list)
 
+            s = ""
             for el in brand_list:
-                print(newer_password_list[new_probability_list.index(el)], el)
+                s += str((newer_password_list[new_probability_list.index(el)], el))+"\n"
+
+            # TODO: add a Dialog with option choice
+            msgbox2 = QtWidgets.QMessageBox()
+            msgbox2.setIcon(QtWidgets.QMessageBox.Information)
+            msgbox2.setWindowTitle('INFO')
+            msgbox2.setText(s)
+            msgbox2.setStandardButtons(QtWidgets.QMessageBox.Ok)
+            msgbox2.exec_()
+            self.tableWidget.hide()
+            #msgBox.buttonClicked.connect(msgButtonClick)
 
 
         # TODO: make a dialog with all possibilities
