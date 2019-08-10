@@ -40,8 +40,6 @@ char_stats_eng = [0.08167, 0.01492, 0.02782, 0.04253, 0.12702, 0.02228,  # A B C
                   0.06327, 0.09056, 0.02758, 0.00978, 0.02360, 0.00150,  # S T U V W X
                   0.01974, 0.00074]                                      # Y Z
 
-
-
 # TODO: attach a new object to this option
 key_mode = 1 # 1 or 0, 0 for one, and 1 for several
 ###################################GUI AND MAIN CLASS####################################
@@ -253,11 +251,7 @@ class Ui_MainWindow(object):
         self.actionExit.setShortcut(_translate("MainWindow", "Esc"))
 
     def start_cracking(self):
-        # TODO: add documentation
         # TODO: add option Handling large texts --> by dividing into smaller pieces
-        """
-        :return:
-        """
 
         # Disabling input
         self.textBrowser.setDisabled(True)
@@ -294,6 +288,10 @@ class Ui_MainWindow(object):
         try:
             repeat_result = self.subfind(new_ciphergram, MINLEN, MINCNT) # Returns a dict with repeating fragments and number of their appearings
             key_length = self.create_table(new_ciphergram, repeat_result, show_table)
+            # if error: too little information
+            if key_length == 0:
+                self.reset_gui()
+                return
 
         except Exception as e:
             print(e)
@@ -311,21 +309,7 @@ class Ui_MainWindow(object):
         except Exception as e:
             print(e)
 
-        # Re-enabling input
-        self.textBrowser.setDisabled(False)
-        self.btn_open.setDisabled(False)
-        self.btn_save.setDisabled(False)
-        self.btn_start.setDisabled(False)
-        self.spinBox.setDisabled(False)
-        self.spinBox_2.setDisabled(False)
-        self.checkBox.setDisabled(False)
-        self.checkBox_2.setDisabled(False)
-        self.checkBox_3.setDisabled(False)
-
-        # Closing progressbar
-        self.progressbar.hide()
-        self.progress_label.clear()
-        return
+        self.reset_gui()
 
     def create_table(self, ciphergram, repeat_result, show_table):
         """
@@ -341,7 +325,15 @@ class Ui_MainWindow(object):
         repeat_keys = list(repeat_result.keys())  # list of repeating fragments
         repeat_values = list(repeat_result.values())  # list of their appearings
 
-        # FIXME: there is a problem with creating table for small texts
+        if len(repeat_result) == 0:
+            msgbox = QtWidgets.QMessageBox()
+            msgbox.setIcon(QtWidgets.QMessageBox.Warning)
+            msgbox.setWindowTitle('WARNING')
+            msgbox.setText('Unfortunately, there is too little information to crack the ciphergram')
+            msgbox.setStandardButtons(QtWidgets.QMessageBox.Ok)
+            msgbox.exec_()
+            return 0
+            # FIXME: there is a problem with creating table for small texts
         # Creating a Table - basic, headers and first 3 columns
         try:
             self.tableWidget = QTableWidget()
@@ -372,7 +364,7 @@ class Ui_MainWindow(object):
             self.tableWidget.setItem(X, 1, QTableWidgetItem(str(len(repeat_keys[X]))))
             self.tableWidget.setItem(X, 2, QTableWidgetItem(str(repeat_values[X])))
             for Y in range(len(list_1)):
-                self.tableWidget.setItem (X, Y + 3, QTableWidgetItem(str(list_1[Y])))
+                self.tableWidget.setItem(X, Y + 3, QTableWidgetItem(str(list_1[Y])))
 
         # Creating place for GCD column
         max_list_1_length += 3
@@ -699,6 +691,23 @@ class Ui_MainWindow(object):
         self.textBrowser.setFontPointSize(size)
         self.textBrowser.setText(copy)
         self.label_fs.setText("Font size: "+str(size))
+
+    def reset_gui(self):
+        # Re-enabling input
+        self.textBrowser.setDisabled (False)
+        self.btn_open.setDisabled (False)
+        self.btn_save.setDisabled (False)
+        self.btn_start.setDisabled (False)
+        self.spinBox.setDisabled (False)
+        self.spinBox_2.setDisabled (False)
+        self.checkBox.setDisabled (False)
+        self.checkBox_2.setDisabled (False)
+        self.checkBox_3.setDisabled (False)
+
+        # Closing progressbar
+        self.progressbar.hide ()
+        self.progress_label.clear ()
+        return
 
 ####################################FILE EXECUTION###################################################
 if __name__ == "__main__":
