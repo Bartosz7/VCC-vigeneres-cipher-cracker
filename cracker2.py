@@ -165,7 +165,21 @@ class Ui_MainWindow(object):
         self.spinBox_2.setMaximumSize(QtCore.QSize(75, 16777215))
         self.spinBox_2.setMinimum(2)
         self.spinBox_2.setObjectName("spinBox_2")
+        #
+        self.spinBox_3 = QtWidgets.QSpinBox(self.verticalLayoutWidget_2)
+        self.spinBox_3.setMinimumSize(QtCore.QSize(50,0))
+        self.spinBox_3.setMaximumSize(QtCore.QSize(75, 16777215))
+        self.spinBox_3.setMinimum(3)
+        self.spinBox_3.setMaximum(20)
+        self.spinBox_3.setObjectName("spinBox_3")
+        #
         self.formLayout_2.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.spinBox_2)
+        #
+        self.formLayout_2.setWidget (2, QtWidgets.QFormLayout.LabelRole, self.spinBox_3)
+        self.spin_label_3 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
+        self.spin_label_3.setObjectName("spin_label_3")
+        self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.spin_label_3)
+        #
         self.spin_label_2 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
         self.spin_label_2.setObjectName("spin_label_2")
         self.formLayout_2.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.spin_label_2)
@@ -247,14 +261,14 @@ class Ui_MainWindow(object):
         #
         self.progress_label.hide()
         self.progressbar.hide()
-        #
-
         # Retranslation and connecting SIGNALS
         self.retranslateUi(MainWindow)
         self.checkBox_skip.toggled['bool'].connect(self.spin_label_2.setHidden)
         self.checkBox_skip.toggled['bool'].connect(self.spinBox.setHidden)
         self.checkBox_skip.toggled['bool'].connect(self.spinBox_2.setHidden)
         self.checkBox_skip.toggled['bool'].connect(self.spin_label_1.setHidden)
+        self.checkBox_skip.toggled['bool'].connect(self.spinBox_3.setHidden)
+        self.checkBox_skip.toggled['bool'].connect(self.spin_label_3.setHidden)
         self.actionExit.triggered['bool'].connect(MainWindow.close)
         self.actionExit.triggered.connect(MainWindow.close)
         self.btn_start.clicked.connect(self.start_cracking)
@@ -279,6 +293,8 @@ class Ui_MainWindow(object):
         self.comboBox_method.setItemText(0, _translate("MainWindow", "Statistic (one key, simple)"))
         self.comboBox_method.setItemText(1, _translate("MainWindow", "Statistic (multiple keys)"))
         self.checkBox_skip.setText(_translate("MainWindow", "Skip key length search"))
+        self.spin_label_3.setText(_translate("MainWindow", "Suggestions"))
+        self.spin_label_3.setToolTip(_translate("MainWindow", "# number of suggestions of password lengths"))
         self.spin_label_2.setToolTip(_translate("MainWindow", "# minimal number of appearings of repeating fragments to find"))
         self.spin_label_2.setText(_translate("MainWindow", "MIN_CNT"))
         self.spin_label_1.setToolTip(_translate("MainWindow", "# minimal length of repeating fragments to find"))
@@ -318,6 +334,10 @@ class Ui_MainWindow(object):
             self.comboBox_lang.setDisabled(True)
             self.comboBox_method.setDisabled(True)
             self.checkBox_skip.setDisabled(True)
+            self.spinBox_3.setDisabled(True)
+            self.spin_label_1.setDisabled(True)
+            self.spin_label_2.setDisabled(True)
+            self.spin_label_3.setDisabled(True)
 
             # Set progressbar
             self.progressbar.show()
@@ -330,6 +350,7 @@ class Ui_MainWindow(object):
             key_mode = self.comboBox_method.currentIndex()
             language = self.comboBox_lang.currentText()
             skip = self.checkBox_skip.isChecked()
+            suggestions = self.spinBox_3.value()
 
             print("MINLEN: "+str(MINLEN) +"\nMINCNT: "+str(MINCNT) + "\nkey_mode: "
                   + str(key_mode) + "\nlang: " + str(language) + "\nskip: " + str(skip))
@@ -352,12 +373,12 @@ class Ui_MainWindow(object):
                 # Returns a dict with repeating fragments and number of their appearings
                 if skip == False:
                     repeat_result = self.subfind(new_ciphergram, MINLEN, MINCNT)
-                    message_text = self.create_table(new_ciphergram, repeat_result)
+                    message_text = self.create_table(new_ciphergram, repeat_result, suggestions)
                     if message_text == 0: #IF ERROR
                         self.reset_gui ()
                         return
 
-                message_text += "Enter probable key length"
+                message_text += "\nEnter probable key length"
 
                 # Key length input
                 # TODO: check for valid input / make input mask only digits, positive
@@ -393,7 +414,7 @@ class Ui_MainWindow(object):
         except Exception as e:
             print(e)
 
-    def create_table(self, ciphergram, repeat_result):
+    def create_table(self, ciphergram, repeat_result, suggestions):
         """
 
         :param ciphergram: ciphered text
@@ -477,10 +498,10 @@ class Ui_MainWindow(object):
 
             # Message to give probable key length values
             message_text = ""
-            message_text = "Programme suggests 5 most probable values of key length: " + "\n"
-            for i in range(5):
+            message_text = "Programme suggests " +str(suggestions) +" most probable values of key length: " + "\n"
+            for i in range(suggestions):
                 message_text += str(x[i][0])
-                if i != 4:
+                if i != suggestions-1:
                     message_text += ", "
             message_text += "\n\n" + "Remember: keys of length 3 or less are rarely chosen"
             return message_text
@@ -784,6 +805,7 @@ class Ui_MainWindow(object):
         self.label_fs.setDisabled(False)
         self.comboBox_lang.setDisabled(False)
         self.comboBox_method.setDisabled(False)
+        self.spinBox_3.setDisabled(False)
 
         # Closing progressbar
         self.progressbar.hide()
@@ -1094,7 +1116,7 @@ class Ui_Form(Ui_MainWindow):
         __sortingEnabled = self.listwidget_lengths.isSortingEnabled()
         self.listwidget_lengths.setSortingEnabled(False)
         item = self.listwidget_lengths.item(0)
-        item.setText(_translate("Form", "Zaznacz wszystko"))
+        item.setText(_translate("Form", "Choose everything"))
         item = self.listwidget_lengths.item(1)
         item.setText(_translate("Form", "2"))
         item = self.listwidget_lengths.item(2)
@@ -1112,7 +1134,7 @@ class Ui_Form(Ui_MainWindow):
         __sortingEnabled = self.list_passwords.isSortingEnabled()
         self.list_passwords.setSortingEnabled(False)
         item = self.list_passwords.item(0)
-        item.setText(_translate("Form", "Zaznacz wszystko"))
+        item.setText(_translate("Form", "Choose everything"))
         self.list_passwords.setSortingEnabled(__sortingEnabled)
         self.label_7.setText(_translate("Form", "Choose method"))
         self.radiobtn_auto.setText(_translate("Form", "Auto (recommended)"))
@@ -1128,7 +1150,6 @@ class Ui_Form(Ui_MainWindow):
         self.line_password_static.setPlaceholderText(_translate("Form", "PASSWORD"))
         self.btn_cancel2.setText(_translate("Form", "Cancel"))
         self.btn_ok2.setText(_translate("Form", "OK"))
-
 
 if __name__ == "__main__":
     import sys
