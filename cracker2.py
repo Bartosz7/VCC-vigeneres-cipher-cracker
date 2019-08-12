@@ -70,9 +70,6 @@ class Ui_MainWindow(object):
         MainWindow.setWindowIcon (icon)
         MainWindow.setWindowTitle ("VCC Vigenere's Cipher Cracker v.1.8.0")
 
-        # Styling
-        # TODO: play with style
-        normal_style = "color: white; background-color: gray"
 
         # Main GUI look
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -347,13 +344,13 @@ class Ui_MainWindow(object):
             # Get inputed options
             MINLEN = self.spinBox.value()           # minimal length of repeating fragments
             MINCNT = self.spinBox_2.value()         # minimal number of appearings of repeating fragments
-            key_mode = self.comboBox_method.currentIndex()
+            mode = self.comboBox_method.currentIndex()
             language = self.comboBox_lang.currentText()
             skip = self.checkBox_skip.isChecked()
             suggestions = self.spinBox_3.value()
 
-            print("MINLEN: "+str(MINLEN) +"\nMINCNT: "+str(MINCNT) + "\nkey_mode: "
-                  + str(key_mode) + "\nlang: " + str(language) + "\nskip: " + str(skip))
+            print("MINLEN: " + str(MINLEN) +"\nMINCNT: " + str(MINCNT) + "\nkey_mode: "
+                  + str(mode) + "\nlang: " + str(language) + "\nskip: " + str(skip))
 
             # Get text for analysis
             ciphergram = self.textBrowser.toPlainText()
@@ -368,6 +365,7 @@ class Ui_MainWindow(object):
 
             # Search for repeating fragments of chars
             try:
+
                 message_text = ""
 
                 # Returns a dict with repeating fragments and number of their appearings
@@ -375,7 +373,7 @@ class Ui_MainWindow(object):
                     repeat_result = self.subfind(new_ciphergram, MINLEN, MINCNT)
                     message_text = self.create_table(new_ciphergram, repeat_result, suggestions)
                     if message_text == 0: #IF ERROR
-                        self.reset_gui ()
+                        self.reset_gui()
                         return
 
                 message_text += "\nEnter probable key length"
@@ -393,10 +391,10 @@ class Ui_MainWindow(object):
                 print(e)
 
             # Real cracking: statistical analysis using least-squares method
-            key_word = self.decoder(key_length, new_ciphergram, key_mode) # decoder -> mono_crack --> password char by char
+            key_word = self.decoder(key_length, new_ciphergram, mode) # decoder -> mono_crack --> password char by char
 
             # Decoding whole text using cracked password
-            if key_mode == 0:
+            if mode == 0:
                 try:
                     new_text = "Password: "+str(key_word) + "\n"
                     new_text += self.decrypt(ciphergram, key_word)
@@ -407,7 +405,7 @@ class Ui_MainWindow(object):
                     print(e)
 
             #
-            if key_mode == 1:
+            if mode == 1:
                 print(key_word)
 
             self.reset_gui()
@@ -1159,3 +1157,6 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+
+# Styling
+#normal_style = "color: white; background-color: gray"

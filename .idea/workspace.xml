@@ -16,17 +16,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cracker2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="299" column="76" selection-start-line="299" selection-start-column="76" selection-end-line="299" selection-end-column="76" />
+            <state relative-caret-position="261">
+              <caret line="398" column="48" selection-start-line="398" selection-start-column="48" selection-end-line="398" selection-end-column="48" />
               <folding>
                 <element signature="e#2453#2796#1" />
-                <element signature="e#2841#15149#0" />
                 <element signature="e#21348#26077#0" />
                 <element signature="e#26132#27388#0" />
+                <element signature="e#27455#30314#0" />
+                <element signature="e#30366#32376#0" />
                 <element signature="e#32425#34665#0" />
                 <element signature="e#34738#35260#0" />
                 <element signature="e#35295#35661#0" />
                 <element signature="e#35703#36043#0" />
+                <element signature="e#36760#57304#0" />
                 <element signature="e#54756#57304#0" />
                 <element signature="e#57338#57532#0" />
               </folding>
@@ -75,6 +77,7 @@
       <find>MINLEN</find>
       <find>spin_label_2</find>
       <find>Zaznacz</find>
+      <find>mode</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -212,7 +215,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565606971508</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="'Added new spinbox suggestions and its functionality'">
+      <created>1565636477005</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1565636477005</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -233,7 +243,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32843137" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32843137" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -251,7 +261,8 @@
     <MESSAGE value="'something'" />
     <MESSAGE value="'implemented basic functionality, waiting for input assembly, and connecting classes'" />
     <MESSAGE value="'Implemented skip_btn functionality for one-key method, added commentary and a few TODOS/FIXMES'" />
-    <option name="LAST_COMMIT_MESSAGE" value="'Implemented skip_btn functionality for one-key method, added commentary and a few TODOS/FIXMES'" />
+    <MESSAGE value="'Added new spinbox suggestions and its functionality'" />
+    <option name="LAST_COMMIT_MESSAGE" value="'Added new spinbox suggestions and its functionality'" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/dict_eng.txt">
@@ -284,17 +295,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cracker2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="299" column="76" selection-start-line="299" selection-start-column="76" selection-end-line="299" selection-end-column="76" />
+        <state relative-caret-position="261">
+          <caret line="398" column="48" selection-start-line="398" selection-start-column="48" selection-end-line="398" selection-end-column="48" />
           <folding>
             <element signature="e#2453#2796#1" />
-            <element signature="e#2841#15149#0" />
             <element signature="e#21348#26077#0" />
             <element signature="e#26132#27388#0" />
+            <element signature="e#27455#30314#0" />
+            <element signature="e#30366#32376#0" />
             <element signature="e#32425#34665#0" />
             <element signature="e#34738#35260#0" />
             <element signature="e#35295#35661#0" />
             <element signature="e#35703#36043#0" />
+            <element signature="e#36760#57304#0" />
             <element signature="e#54756#57304#0" />
             <element signature="e#57338#57532#0" />
           </folding>
