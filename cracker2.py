@@ -14,8 +14,8 @@ from itertools import product
 #########################################CONSTANTS############################################
 
 # Language and version
-version = "1.8.0"
-language = "English"
+version = "1.8.4"
+app_language = "English"
 
 # Local time / Start time of format: day-month-year hour-minute-second
 time_local = time.strftime("%d-%m-%Y %H-%M-%S ", time.localtime())
@@ -42,8 +42,6 @@ char_stats_eng = [0.08167, 0.01492, 0.02782, 0.04253, 0.12702, 0.02228,  # A B C
                   0.06327, 0.09056, 0.02758, 0.00978, 0.02360, 0.00150,  # S T U V W X
                   0.01974, 0.00074]                                      # Y Z
 
-# TODO: attach a new object to this option
-key_mode = 0 # 1 or 0, 0 for one, and 1 for several
 ###################################GUI AND MAIN CLASS####################################
 
 class Ui_MainWindow(object):
@@ -295,10 +293,11 @@ class Ui_MainWindow(object):
         self.actionExit.setShortcut(_translate("MainWindow", "Esc"))
 
     def start_cracking(self):
+
         try:
             # TODO: add option Handling large texts --> by dividing into smaller pieces
 
-            #
+            #BY_WIDGET (multi)
             #QtWidgets.QApplication.processEvents()
             #app = QtWidgets.QApplication(sys.argv)
             #Form = QtWidgets.QWidget()
@@ -328,6 +327,12 @@ class Ui_MainWindow(object):
             # Get inputed options
             MINLEN = self.spinBox.value()           # minimal length of repeating fragments
             MINCNT = self.spinBox_2.value()         # minimal number of appearings of repeating fragments
+            key_mode = self.comboBox_method.currentIndex()
+            language = self.comboBox_lang.currentText()
+            skip = self.checkBox_skip.isChecked()
+
+            print("MINLEN: "+str(MINLEN) +"\nMINCNT: "+str(MINCNT) + "\nkey_mode: "
+                  + str(key_mode) + "\nlang: " + str(language) + "\nskip: " + str(skip))
 
             # Get text for analysis
             ciphergram = self.textBrowser.toPlainText()
@@ -342,13 +347,27 @@ class Ui_MainWindow(object):
 
             # Search for repeating fragments of chars
             try:
-                repeat_result = self.subfind(new_ciphergram, MINLEN, MINCNT) # Returns a dict with repeating fragments and number of their appearings
-                key_length = self.create_table(new_ciphergram, repeat_result)
-                # if error: too little information
-                if key_length == 0:
-                    self.reset_gui()
-                    return
+                message_text = ""
 
+                # Returns a dict with repeating fragments and number of their appearings
+                if skip == False:
+                    repeat_result = self.subfind(new_ciphergram, MINLEN, MINCNT)
+                    message_text = self.create_table(new_ciphergram, repeat_result)
+                    if message_text == 0: #IF ERROR
+                        self.reset_gui ()
+                        return
+
+                message_text += "Enter probable key length"
+
+                # Key length input
+                # TODO: check for valid input / make input mask only digits, positive
+                dialog = QtWidgets.QInputDialog(MainWindow)
+                key_length, ok = dialog.getInt(MainWindow, 'Probable key length: ', message_text)
+                if ok:
+                    # ?add number or list of numbers with spacing " "
+                    key_length = int(key_length)
+
+            # NOTE: 370 to this moment it's ok
             except Exception as e:
                 print(e)
 
@@ -452,8 +471,6 @@ class Ui_MainWindow(object):
             # Saving memory space
             del s, x, row_gcd
 
-            # Checking for option
-
             # Counting divisors and sorting from largest number of appearings to smallest
             x = Counter(list_of_divisors)
             x = sorted(x.items(), key=lambda x: x[1], reverse=True)
@@ -466,7 +483,7 @@ class Ui_MainWindow(object):
                 if i != 4:
                     message_text += ", "
             message_text += "\n\n" + "Remember: keys of length 3 or less are rarely chosen"
-            message_text += "\n\n" + "Enter probable key length:"
+            return message_text
 
         except Exception as e:
             msgbox = QtWidgets.QMessageBox ()
@@ -477,14 +494,6 @@ class Ui_MainWindow(object):
             msgbox.exec_()
             self.tableWidget.hide()
             return 0
-
-        dialog = QtWidgets.QInputDialog(MainWindow)
-        key_length, ok = dialog.getInt(self.tableWidget, 'Probable key length: ', message_text)
-        if ok:
-            # add number or list of numbers with spacing " "
-            key_length = int(key_length)
-
-        return key_length
 
     def subfind(self, text, MINLEN, MINCNT):
         """
