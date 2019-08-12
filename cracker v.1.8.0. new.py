@@ -254,12 +254,12 @@ class Ui_MainWindow(object):
         # TODO: add option Handling large texts --> by dividing into smaller pieces
 
         #
-        QtWidgets.QApplication.processEvents()
-        app = QtWidgets.QApplication(sys.argv)
-        Form = QtWidgets.QWidget()
-        ui = Ui_Form()
-        ui.setupUi(Form)
-        Form.show()
+        #QtWidgets.QApplication.processEvents()
+        #app = QtWidgets.QApplication(sys.argv)
+        #Form = QtWidgets.QWidget()
+        #ui = Ui_Form()
+        #ui.setupUi(Form)
+        #Form.show()
 
         # Disabling input
         self.textBrowser.setDisabled(True)
@@ -305,7 +305,7 @@ class Ui_MainWindow(object):
             print(e)
 
         # Real cracking: statistical analysis using least-squares method
-        key_word = self.decoder(key_length, new_ciphergram, key_mode) # decoder -> mono_crack --> password letter by letter
+        key_word = self.decoder(key_length, new_ciphergram, key_mode) # decoder -> mono_crack --> password char by char
 
         # Decoding whole text using cracked password
         if key_mode == 0:
@@ -718,23 +718,24 @@ class Ui_MainWindow(object):
         self.label_fs.setText("Font size: "+str(size))
 
     def reset_gui(self):
+
         # Re-enabling input
-        self.textBrowser.setDisabled (False)
-        self.btn_open.setDisabled (False)
-        self.btn_save.setDisabled (False)
-        self.btn_start.setDisabled (False)
-        self.spinBox.setDisabled (False)
-        self.spinBox_2.setDisabled (False)
-        self.checkBox.setDisabled (False)
-        self.checkBox_2.setDisabled (False)
-        self.checkBox_3.setDisabled (False)
+        self.textBrowser.setDisabled(False)
+        self.btn_open.setDisabled(False)
+        self.btn_save.setDisabled(False)
+        self.btn_start.setDisabled(False)
+        self.spinBox.setDisabled(False)
+        self.spinBox_2.setDisabled(False)
+        self.checkBox.setDisabled(False)
+        self.checkBox_2.setDisabled(False)
+        self.checkBox_3.setDisabled(False)
 
         # Closing progressbar
-        self.progressbar.hide ()
-        self.progress_label.clear ()
+        self.progressbar.hide()
+        self.progress_label.clear()
         return
 
-class Ui_Form(object):
+class Ui_Form(Ui_MainWindow):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(961, 418)
