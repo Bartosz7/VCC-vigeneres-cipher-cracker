@@ -381,15 +381,24 @@ class Ui_MainWindow(object):
                 if mode == 0:
                     try:
                         new_text = "Password: " + str (key_word) + "\n"
-                        new_text += self.decrypt (ciphergram, key_word)
-                        self.textBrowser.setText (new_text)
-                        MainWindow.showMaximized ()
+                        new_text += self.decrypt(ciphergram, key_word)
+                        self.textBrowser.setText(new_text)
+                        MainWindow.showMaximized()
 
                     except Exception as e:
                         print (e)
 
-            # multi key mode (index: 1)
+            # multi key mode (index: 1) / Advanced Panel
             else:
+                try:
+                    #QtWidgets.QApplication.processEvents()
+                    app = QtWidgets.QApplication(sys.argv)
+                    Form = QtWidgets.QWidget()
+                    ui = Ui_Form()
+                    ui.setupUi(Form)
+                    Form.show()
+                except Exception as e:
+                    print(e)
                 if skip == False:
                     None
                 else:
@@ -399,6 +408,7 @@ class Ui_MainWindow(object):
             print(e)
 
         self.reset_gui()
+        #return
 
     def create_table(self, ciphergram: str, repeat_result: dict, suggestions: int):
         """

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d3aababe-eb33-4138-821d-e2e7c9995e7b" name="Default Changelist" comment="Imported time, added commentary, optimized setup Ui and start_cracking functions">
+    <list default="true" id="d3aababe-eb33-4138-821d-e2e7c9995e7b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cracker2.py" beforeDir="false" afterPath="$PROJECT_DIR$/cracker2.py" afterDir="false" />
     </list>
@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cracker2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="396" selection-start-line="396" selection-end-line="396" />
+            <state relative-caret-position="273">
+              <caret line="398" column="31" lean-forward="true" selection-start-line="398" selection-start-column="31" selection-end-line="398" selection-end-column="31" />
               <folding>
                 <element signature="e#283#322#0" expanded="true" />
                 <element signature="e#2453#2796#1" />
@@ -32,8 +32,6 @@
                 <element signature="e#36479#36845#0" />
                 <element signature="e#36887#37227#0" />
                 <element signature="e#37263#37950#0" />
-                <element signature="e#38019#55937#0" />
-                <element signature="e#55982#58532#0" />
                 <element signature="e#58565#58759#0" />
               </folding>
             </state>
@@ -43,14 +41,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/funcs.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="76" column="17" lean-forward="true" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
+            <state relative-caret-position="144">
+              <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
                 <element signature="e#44#254#0" />
                 <element signature="e#277#883#0" />
                 <element signature="e#923#1503#0" />
                 <element signature="e#1534#1877#0" />
+                <element signature="e#1941#2098#0" />
               </folding>
             </state>
           </provider>
@@ -59,12 +58,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cracker v.1.8.0. new.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="328" selection-start-line="328" selection-end-line="328" />
+            <state relative-caret-position="8314">
+              <caret line="1075" lean-forward="true" selection-start-line="1075" selection-end-line="1075" />
               <folding>
                 <element signature="e#282#321#0" expanded="true" />
+                <element signature="e#2894#11760#0" />
                 <element signature="e#11811#13421#0" />
-                <element signature="e#13461#16072#0" />
                 <element signature="e#21524#22780#0" />
                 <element signature="e#22847#25706#0" />
                 <element signature="e#25758#27768#0" />
@@ -73,7 +72,6 @@
                 <element signature="e#30687#31053#0" />
                 <element signature="e#31095#31435#0" />
                 <element signature="e#31471#31981#0" />
-                <element signature="e#32017#52561#0" />
               </folding>
             </state>
           </provider>
@@ -82,8 +80,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="6" column="11" lean-forward="true" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+            <state relative-caret-position="192">
+              <caret line="8" selection-start-line="8" selection-end-line="39" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -120,8 +118,8 @@
         <option value="$PROJECT_DIR$/cracker v.1.8.0. new.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/funcs.py" />
-        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
         <option value="$PROJECT_DIR$/cracker2.py" />
+        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
       </list>
     </option>
   </component>
@@ -338,7 +336,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565680605567</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Removed main try in start_cracking and unindented its insides">
+      <created>1565682226369</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1565682226369</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView">
@@ -366,7 +371,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32843137" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32843137" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32843137" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" x="0" y="0" width="295" height="544" id="Documentation" side_tool="true" weight="0.32980332" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -408,7 +413,8 @@
     <MESSAGE value="'Added normalize function'" />
     <MESSAGE value="'changed version name only'" />
     <MESSAGE value="Imported time, added commentary, optimized setup Ui and start_cracking functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Imported time, added commentary, optimized setup Ui and start_cracking functions" />
+    <MESSAGE value="Removed main try in start_cracking and unindented its insides" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed main try in start_cracking and unindented its insides" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/dict_eng.txt">
@@ -425,14 +431,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/method_widget.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funcs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#44#254#0" />
+            <element signature="e#277#883#0" />
+            <element signature="e#923#1503#0" />
+            <element signature="e#1534#1877#0" />
+            <element signature="e#1941#2098#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cracker v.1.8.0. new.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="328" selection-start-line="328" selection-end-line="328" />
+        <state relative-caret-position="8314">
+          <caret line="1075" lean-forward="true" selection-start-line="1075" selection-end-line="1075" />
           <folding>
             <element signature="e#282#321#0" expanded="true" />
+            <element signature="e#2894#11760#0" />
             <element signature="e#11811#13421#0" />
-            <element signature="e#13461#16072#0" />
             <element signature="e#21524#22780#0" />
             <element signature="e#22847#25706#0" />
             <element signature="e#25758#27768#0" />
@@ -441,41 +467,21 @@
             <element signature="e#30687#31053#0" />
             <element signature="e#31095#31435#0" />
             <element signature="e#31471#31981#0" />
-            <element signature="e#32017#52561#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/method_widget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/funcs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="76" column="17" lean-forward="true" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#44#254#0" />
-            <element signature="e#277#883#0" />
-            <element signature="e#923#1503#0" />
-            <element signature="e#1534#1877#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="6" column="11" lean-forward="true" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+        <state relative-caret-position="192">
+          <caret line="8" selection-start-line="8" selection-end-line="39" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cracker2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="396" selection-start-line="396" selection-end-line="396" />
+        <state relative-caret-position="273">
+          <caret line="398" column="31" lean-forward="true" selection-start-line="398" selection-start-column="31" selection-end-line="398" selection-end-column="31" />
           <folding>
             <element signature="e#283#322#0" expanded="true" />
             <element signature="e#2453#2796#1" />
@@ -490,8 +496,6 @@
             <element signature="e#36479#36845#0" />
             <element signature="e#36887#37227#0" />
             <element signature="e#37263#37950#0" />
-            <element signature="e#38019#55937#0" />
-            <element signature="e#55982#58532#0" />
             <element signature="e#58565#58759#0" />
           </folding>
         </state>
