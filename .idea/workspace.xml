@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d3aababe-eb33-4138-821d-e2e7c9995e7b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cracker2.py" beforeDir="false" afterPath="$PROJECT_DIR$/cracker2.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -222,7 +221,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565636477005</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="'something'">
+      <created>1565638512815</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1565638512815</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
@@ -236,7 +242,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.171875" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -258,11 +263,11 @@
     </layout>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="'something'" />
     <MESSAGE value="'implemented basic functionality, waiting for input assembly, and connecting classes'" />
     <MESSAGE value="'Implemented skip_btn functionality for one-key method, added commentary and a few TODOS/FIXMES'" />
     <MESSAGE value="'Added new spinbox suggestions and its functionality'" />
-    <option name="LAST_COMMIT_MESSAGE" value="'Added new spinbox suggestions and its functionality'" />
+    <MESSAGE value="'something'" />
+    <option name="LAST_COMMIT_MESSAGE" value="'something'" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/dict_eng.txt">
