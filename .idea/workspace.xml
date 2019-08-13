@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d3aababe-eb33-4138-821d-e2e7c9995e7b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cracker2.py" beforeDir="false" afterPath="$PROJECT_DIR$/cracker2.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,25 +12,33 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cracker2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="398" column="48" selection-start-line="398" selection-start-column="48" selection-end-line="398" selection-end-column="48" />
+            <state relative-caret-position="240">
+              <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
               <folding>
+                <element signature="e#283#322#0" expanded="true" />
                 <element signature="e#2453#2796#1" />
-                <element signature="e#21348#26077#0" />
-                <element signature="e#26132#27388#0" />
-                <element signature="e#27455#30314#0" />
-                <element signature="e#30366#32376#0" />
-                <element signature="e#32425#34665#0" />
-                <element signature="e#34738#35260#0" />
-                <element signature="e#35295#35661#0" />
-                <element signature="e#35703#36043#0" />
-                <element signature="e#36760#57304#0" />
-                <element signature="e#54756#57304#0" />
-                <element signature="e#57338#57532#0" />
+                <element signature="e#38019#55937#0" />
+                <element signature="e#55982#58532#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/funcs.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="76" column="17" lean-forward="true" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
+                <element signature="e#44#254#0" />
+                <element signature="e#277#883#0" />
+                <element signature="e#923#1503#0" />
+                <element signature="e#1534#1877#0" />
               </folding>
             </state>
           </provider>
@@ -39,7 +48,7 @@
         <entry file="file://$PROJECT_DIR$/cracker v.1.8.0. new.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="72">
-              <caret line="328" lean-forward="true" selection-start-line="328" selection-end-line="328" />
+              <caret line="328" selection-start-line="328" selection-end-line="328" />
               <folding>
                 <element signature="e#282#321#0" expanded="true" />
                 <element signature="e#11811#13421#0" />
@@ -86,6 +95,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/cracker v.1.8.0. new.py" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/funcs.py" />
         <option value="$PROJECT_DIR$/cracker2.py" />
       </list>
     </option>
@@ -175,9 +186,53 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="funcs" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="VCC" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/funcs.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="VCC" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.cracker2" />
+        <item itemvalue="Python.funcs" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.cracker v.1.8.0. new" />
       </list>
     </recent_temporary>
@@ -228,7 +283,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565638512815</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="'Added normalize function'">
+      <created>1565677126036</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1565677126036</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -242,13 +304,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.171875" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.171875" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32843137" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32843137" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -257,6 +320,7 @@
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="right" x="0" y="0" width="295" height="544" id="Documentation" side_tool="true" weight="0.32980332" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -267,7 +331,8 @@
     <MESSAGE value="'Implemented skip_btn functionality for one-key method, added commentary and a few TODOS/FIXMES'" />
     <MESSAGE value="'Added new spinbox suggestions and its functionality'" />
     <MESSAGE value="'something'" />
-    <option name="LAST_COMMIT_MESSAGE" value="'something'" />
+    <MESSAGE value="'Added normalize function'" />
+    <option name="LAST_COMMIT_MESSAGE" value="'Added normalize function'" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/dict_eng.txt">
@@ -277,10 +342,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="5" column="8" lean-forward="true" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cracker v.1.8.0. new.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
-          <caret line="328" lean-forward="true" selection-start-line="328" selection-end-line="328" />
+          <caret line="328" selection-start-line="328" selection-end-line="328" />
           <folding>
             <element signature="e#282#321#0" expanded="true" />
             <element signature="e#11811#13421#0" />
@@ -298,23 +370,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/funcs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="76" column="17" lean-forward="true" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#44#254#0" />
+            <element signature="e#277#883#0" />
+            <element signature="e#923#1503#0" />
+            <element signature="e#1534#1877#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/method_widget.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cracker2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="398" column="48" selection-start-line="398" selection-start-column="48" selection-end-line="398" selection-end-column="48" />
+        <state relative-caret-position="240">
+          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
           <folding>
+            <element signature="e#283#322#0" expanded="true" />
             <element signature="e#2453#2796#1" />
-            <element signature="e#21348#26077#0" />
-            <element signature="e#26132#27388#0" />
-            <element signature="e#27455#30314#0" />
-            <element signature="e#30366#32376#0" />
-            <element signature="e#32425#34665#0" />
-            <element signature="e#34738#35260#0" />
-            <element signature="e#35295#35661#0" />
-            <element signature="e#35703#36043#0" />
-            <element signature="e#36760#57304#0" />
-            <element signature="e#54756#57304#0" />
-            <element signature="e#57338#57532#0" />
+            <element signature="e#38019#55937#0" />
+            <element signature="e#55982#58532#0" />
           </folding>
         </state>
       </provider>

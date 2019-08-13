@@ -14,7 +14,7 @@ from itertools import product
 #########################################CONSTANTS############################################
 
 # Language and version
-version = "1.8.4"
+version = "1.9.0."
 app_language = "English"
 
 # Local time / Start time of format: day-month-year hour-minute-second
