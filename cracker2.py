@@ -11,6 +11,7 @@ from datetime import datetime, timedelta
 from collections import Counter, OrderedDict
 from funcs import divisors, GCD, find_distance, transformer
 from itertools import product
+import time # for TESTING only
 #########################################CONSTANTS############################################
 
 # Language and version
@@ -69,7 +70,6 @@ class Ui_MainWindow(object):
         icon = QtGui.QIcon ("wasp.png")
         MainWindow.setWindowIcon (icon)
         MainWindow.setWindowTitle ("VCC Vigenere's Cipher Cracker v.1.8.0")
-
 
         # Main GUI look
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -162,21 +162,17 @@ class Ui_MainWindow(object):
         self.spinBox_2.setMaximumSize(QtCore.QSize(75, 16777215))
         self.spinBox_2.setMinimum(2)
         self.spinBox_2.setObjectName("spinBox_2")
-        #
         self.spinBox_3 = QtWidgets.QSpinBox(self.verticalLayoutWidget_2)
         self.spinBox_3.setMinimumSize(QtCore.QSize(50,0))
         self.spinBox_3.setMaximumSize(QtCore.QSize(75, 16777215))
         self.spinBox_3.setMinimum(3)
         self.spinBox_3.setMaximum(20)
         self.spinBox_3.setObjectName("spinBox_3")
-        #
         self.formLayout_2.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.spinBox_2)
-        #
         self.formLayout_2.setWidget (2, QtWidgets.QFormLayout.LabelRole, self.spinBox_3)
         self.spin_label_3 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
         self.spin_label_3.setObjectName("spin_label_3")
         self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.spin_label_3)
-        #
         self.spin_label_2 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
         self.spin_label_2.setObjectName("spin_label_2")
         self.formLayout_2.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.spin_label_2)
@@ -255,9 +251,11 @@ class Ui_MainWindow(object):
         self.menuHelp.addAction(self.actionAuthor_License)
         self.menuHelp.addAction(self.actionExit)
         self.menubar.addAction(self.menuHelp.menuAction())
-        #
+
+        # Hiding progress bar
         self.progress_label.hide()
         self.progressbar.hide()
+
         # Retranslation and connecting SIGNALS
         self.retranslateUi(MainWindow)
         self.checkBox_skip.toggled['bool'].connect(self.spin_label_2.setHidden)
@@ -310,14 +308,6 @@ class Ui_MainWindow(object):
         try:
             # TODO: add option Handling large texts --> by dividing into smaller pieces
 
-            #BY_WIDGET (multi)
-            #QtWidgets.QApplication.processEvents()
-            #app = QtWidgets.QApplication(sys.argv)
-            #Form = QtWidgets.QWidget()
-            #ui = Ui_Form()
-            #ui.setupUi(Form)
-            #Form.show()
-
             # Disabling input
             self.textBrowser.setDisabled(True)
             self.btn_open.setDisabled(True)
@@ -342,77 +332,82 @@ class Ui_MainWindow(object):
             self.progress_label.setText("Cracking...")
 
             # Get inputed options
-            MINLEN = self.spinBox.value()           # minimal length of repeating fragments
-            MINCNT = self.spinBox_2.value()         # minimal number of appearings of repeating fragments
-            mode = self.comboBox_method.currentIndex()
-            language = self.comboBox_lang.currentText()
-            skip = self.checkBox_skip.isChecked()
-            suggestions = self.spinBox_3.value()
+            MINLEN = self.spinBox.value()               # minimal length of repeating fragments
+            MINCNT = self.spinBox_2.value()             # minimal number of appearings of repeating fragments
+            mode = self.comboBox_method.currentIndex()  # 0: one key - auto, 1: advanced panel: multi-key
+            language = self.comboBox_lang.currentText() # English / Polish
+            skip = self.checkBox_skip.isChecked()       # skip key length search
+            suggestions = self.spinBox_3.value()        # how many key length to suggest
 
+            # Get text for analysis
+            ciphergram = self.textBrowser.toPlainText ()
+
+            # TESTING
             print("MINLEN: " + str(MINLEN) +"\nMINCNT: " + str(MINCNT) + "\nkey_mode: "
                   + str(mode) + "\nlang: " + str(language) + "\nskip: " + str(skip))
 
-            # Get text for analysis
-            ciphergram = self.textBrowser.toPlainText()
-
             # Ciphergram preprocessing: making text uppercase and only letters
             # eg. "Today is Sunday!" --> "TODAYISSUNDAY"
-            ciphergram_upper = ciphergram.upper()
             new_ciphergram = ""
-            for el in ciphergram_upper:
+            for el in ciphergram.upper():
                 if el in alphabet_capital_eng:
                     new_ciphergram += el
 
             # Search for repeating fragments of chars
             try:
+                # one key mode (index: 0)
+                if mode == 0:
 
-                message_text = ""
+                    message_text = ""
 
-                # Returns a dict with repeating fragments and number of their appearings
-                if skip == False:
-                    repeat_result = self.subfind(new_ciphergram, MINLEN, MINCNT)
-                    message_text = self.create_table(new_ciphergram, repeat_result, suggestions)
-                    if message_text == 0: #IF ERROR
-                        self.reset_gui()
-                        return
+                    if skip == False:
+                        # DO key_len search
+                        # Returns a dict with repeating fragments and number of their appearings
+                        repeat_result = self.subfind(new_ciphergram, MINLEN, MINCNT)
+                        message_text = self.create_table(new_ciphergram, repeat_result, suggestions)
+                        if message_text == 0: #if an error occured
+                            self.reset_gui()
+                            return
 
-                message_text += "\nEnter probable key length"
+                    # skipping key_len search
+                    # TODO: check for valid input / make input mask only digits, positive
+                    dialog = QtWidgets.QInputDialog(MainWindow)
+                    key_length, ok = dialog.getInt(MainWindow, 'Probable key length: ', message_text)
+                    if ok:
+                        key_length = int(key_length)
 
-                # Key length input
-                # TODO: check for valid input / make input mask only digits, positive
-                dialog = QtWidgets.QInputDialog(MainWindow)
-                key_length, ok = dialog.getInt(MainWindow, 'Probable key length: ', message_text)
-                if ok:
-                    # ?add number or list of numbers with spacing " "
-                    key_length = int(key_length)
+                    # Real cracking: statistical analysis using least-squares method
+                    # decoder -> mono_crack --> password char by char
+                    key_word = self.decoder(key_length, new_ciphergram, mode)
 
-            # NOTE: 370 to this moment it's ok
+                    # Decoding whole text using cracked password
+                    if mode == 0:
+                        try:
+                            new_text = "Password: " + str (key_word) + "\n"
+                            new_text += self.decrypt (ciphergram, key_word)
+                            self.textBrowser.setText (new_text)
+                            MainWindow.showMaximized ()
+
+                        except Exception as e:
+                            print (e)
+
+                # multi key mode (index: 1)
+                else:
+                    if skip == False:
+                        None
+                    else:
+                        None
+
+            # FIXME: too many tries (try)
             except Exception as e:
                 print(e)
 
-            # Real cracking: statistical analysis using least-squares method
-            key_word = self.decoder(key_length, new_ciphergram, mode) # decoder -> mono_crack --> password char by char
-
-            # Decoding whole text using cracked password
-            if mode == 0:
-                try:
-                    new_text = "Password: "+str(key_word) + "\n"
-                    new_text += self.decrypt(ciphergram, key_word)
-                    self.textBrowser.setText(new_text)
-                    MainWindow.showMaximized()
-
-                except Exception as e:
-                    print(e)
-
-            #
-            if mode == 1:
-                print(key_word)
-
             self.reset_gui()
+
         except Exception as e:
             print(e)
 
-    def create_table(self, ciphergram, repeat_result, suggestions):
+    def create_table(self, ciphergram: str, repeat_result: dict, suggestions: int):
         """
 
         :param ciphergram: ciphered text
@@ -514,7 +509,7 @@ class Ui_MainWindow(object):
             self.tableWidget.hide()
             return 0
 
-    def subfind(self, text, MINLEN, MINCNT):
+    def subfind(self, text: str, MINLEN: int, MINCNT: int):
         """
         :param text: text to be researched
         :param MINLEN: minimum length of repeating fragments in the text
@@ -545,13 +540,15 @@ class Ui_MainWindow(object):
             self.progressbar.setValue(progress)
         return d
 
-    def decoder(self, key_length, ciphergram, key_mode):
+    def decoder(self, key_length: int, ciphergram: str, key_mode: int):
         """
 
         :param key_length:
         :param ciphergram:
+        :param key_mode:
         :return:
         """
+
         password = ''
         password_list = []
         probability_list = []
@@ -570,6 +567,7 @@ class Ui_MainWindow(object):
         if key_mode == 0:
             return password
 
+        # if key_mode == 1:
         try:
             password_list = list(product(*password_list))
             probability_list = list(product(*probability_list))
@@ -617,6 +615,7 @@ class Ui_MainWindow(object):
             msgbox2.setStandardButtons(QtWidgets.QMessageBox.Ok)
             msgbox2.exec_()
             self.tableWidget.hide()
+            return
             #msgBox.buttonClicked.connect(msgButtonClick)
 
 
@@ -804,6 +803,9 @@ class Ui_MainWindow(object):
         self.comboBox_lang.setDisabled(False)
         self.comboBox_method.setDisabled(False)
         self.spinBox_3.setDisabled(False)
+        self.spin_label_1.setDisabled(False)
+        self.spin_label_2.setDisabled(False)
+        self.spin_label_3.setDisabled(False)
 
         # Closing progressbar
         self.progressbar.hide()
