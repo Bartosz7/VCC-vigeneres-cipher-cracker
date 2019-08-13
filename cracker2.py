@@ -305,107 +305,100 @@ class Ui_MainWindow(object):
 
     def start_cracking(self):
 
+        # TODO: add option Handling large texts --> by dividing into smaller pieces
+
+        # Disabling input
+        self.textBrowser.setDisabled(True)
+        self.btn_open.setDisabled(True)
+        self.btn_save.setDisabled(True)
+        self.btn_start.setDisabled(True)
+        self.spinBox.setDisabled(True)
+        self.spinBox_2.setDisabled(True)
+        self.btn_clear.setDisabled(True)
+        self.slider.setDisabled(True)
+        self.label_fs.setDisabled(True)
+        self.comboBox_lang.setDisabled(True)
+        self.comboBox_method.setDisabled(True)
+        self.checkBox_skip.setDisabled(True)
+        self.spinBox_3.setDisabled(True)
+        self.spin_label_1.setDisabled(True)
+        self.spin_label_2.setDisabled(True)
+        self.spin_label_3.setDisabled(True)
+
+        # Set progressbar
+        self.progressbar.show()
+        self.progress_label.show()
+        self.progress_label.setText("Cracking...")
+
+        # Get inputed options
+        MINLEN = self.spinBox.value()               # minimal length of repeating fragments
+        MINCNT = self.spinBox_2.value()             # minimal number of appearings of repeating fragments
+        mode = self.comboBox_method.currentIndex()  # 0: one key - auto, 1: advanced panel: multi-key
+        language = self.comboBox_lang.currentText() # English / Polish
+        skip = self.checkBox_skip.isChecked()       # skip key length search
+        suggestions = self.spinBox_3.value()        # how many key length to suggest
+
+        # Get text for analysis
+        ciphergram = self.textBrowser.toPlainText ()
+
+        # TESTING
+        print("MINLEN: " + str(MINLEN) +"\nMINCNT: " + str(MINCNT) + "\nkey_mode: "
+              + str(mode) + "\nlang: " + str(language) + "\nskip: " + str(skip))
+
+        # Ciphergram preprocessing: making text uppercase and only letters
+        # eg. "Today is Sunday!" --> "TODAYISSUNDAY"
+        new_ciphergram = ""
+        for el in ciphergram.upper():
+            if el in alphabet_capital_eng:
+                new_ciphergram += el
+
+        # OPTION handling
         try:
-            # TODO: add option Handling large texts --> by dividing into smaller pieces
+            # one key mode (index: 0)
+            if mode == 0:
 
-            # Disabling input
-            self.textBrowser.setDisabled(True)
-            self.btn_open.setDisabled(True)
-            self.btn_save.setDisabled(True)
-            self.btn_start.setDisabled(True)
-            self.spinBox.setDisabled(True)
-            self.spinBox_2.setDisabled(True)
-            self.btn_clear.setDisabled(True)
-            self.slider.setDisabled(True)
-            self.label_fs.setDisabled(True)
-            self.comboBox_lang.setDisabled(True)
-            self.comboBox_method.setDisabled(True)
-            self.checkBox_skip.setDisabled(True)
-            self.spinBox_3.setDisabled(True)
-            self.spin_label_1.setDisabled(True)
-            self.spin_label_2.setDisabled(True)
-            self.spin_label_3.setDisabled(True)
+                message_text = ""
 
-            # Set progressbar
-            self.progressbar.show()
-            self.progress_label.show()
-            self.progress_label.setText("Cracking...")
+                if skip == False:
+                    # DO key_len search
+                    # Returns a dict with repeating fragments and number of their appearings
+                    repeat_result = self.subfind(new_ciphergram, MINLEN, MINCNT)
+                    message_text = self.create_table(new_ciphergram, repeat_result, suggestions)
+                    if message_text == 0: #if an error occured
+                        self.reset_gui()
+                        return
 
-            # Get inputed options
-            MINLEN = self.spinBox.value()               # minimal length of repeating fragments
-            MINCNT = self.spinBox_2.value()             # minimal number of appearings of repeating fragments
-            mode = self.comboBox_method.currentIndex()  # 0: one key - auto, 1: advanced panel: multi-key
-            language = self.comboBox_lang.currentText() # English / Polish
-            skip = self.checkBox_skip.isChecked()       # skip key length search
-            suggestions = self.spinBox_3.value()        # how many key length to suggest
+                # skipping key_len search
+                # TODO: check for valid input / make input mask only digits, positive
+                dialog = QtWidgets.QInputDialog(MainWindow)
+                key_length, ok = dialog.getInt(MainWindow, 'Probable key length: ', message_text)
 
-            # Get text for analysis
-            ciphergram = self.textBrowser.toPlainText ()
+                # Real cracking: statistical analysis using least-squares method
+                # decoder -> mono_crack --> password char by char
+                key_word = self.decoder(key_length, new_ciphergram, mode)
 
-            # TESTING
-            print("MINLEN: " + str(MINLEN) +"\nMINCNT: " + str(MINCNT) + "\nkey_mode: "
-                  + str(mode) + "\nlang: " + str(language) + "\nskip: " + str(skip))
-
-            # Ciphergram preprocessing: making text uppercase and only letters
-            # eg. "Today is Sunday!" --> "TODAYISSUNDAY"
-            new_ciphergram = ""
-            for el in ciphergram.upper():
-                if el in alphabet_capital_eng:
-                    new_ciphergram += el
-
-            # Search for repeating fragments of chars
-            try:
-                # one key mode (index: 0)
+                # Decoding whole text using cracked password
                 if mode == 0:
+                    try:
+                        new_text = "Password: " + str (key_word) + "\n"
+                        new_text += self.decrypt (ciphergram, key_word)
+                        self.textBrowser.setText (new_text)
+                        MainWindow.showMaximized ()
 
-                    message_text = ""
+                    except Exception as e:
+                        print (e)
 
-                    if skip == False:
-                        # DO key_len search
-                        # Returns a dict with repeating fragments and number of their appearings
-                        repeat_result = self.subfind(new_ciphergram, MINLEN, MINCNT)
-                        message_text = self.create_table(new_ciphergram, repeat_result, suggestions)
-                        if message_text == 0: #if an error occured
-                            self.reset_gui()
-                            return
-
-                    # skipping key_len search
-                    # TODO: check for valid input / make input mask only digits, positive
-                    dialog = QtWidgets.QInputDialog(MainWindow)
-                    key_length, ok = dialog.getInt(MainWindow, 'Probable key length: ', message_text)
-                    if ok:
-                        key_length = int(key_length)
-
-                    # Real cracking: statistical analysis using least-squares method
-                    # decoder -> mono_crack --> password char by char
-                    key_word = self.decoder(key_length, new_ciphergram, mode)
-
-                    # Decoding whole text using cracked password
-                    if mode == 0:
-                        try:
-                            new_text = "Password: " + str (key_word) + "\n"
-                            new_text += self.decrypt (ciphergram, key_word)
-                            self.textBrowser.setText (new_text)
-                            MainWindow.showMaximized ()
-
-                        except Exception as e:
-                            print (e)
-
-                # multi key mode (index: 1)
+            # multi key mode (index: 1)
+            else:
+                if skip == False:
+                    None
                 else:
-                    if skip == False:
-                        None
-                    else:
-                        None
-
-            # FIXME: too many tries (try)
-            except Exception as e:
-                print(e)
-
-            self.reset_gui()
+                    None
 
         except Exception as e:
             print(e)
+
+        self.reset_gui()
 
     def create_table(self, ciphergram: str, repeat_result: dict, suggestions: int):
         """

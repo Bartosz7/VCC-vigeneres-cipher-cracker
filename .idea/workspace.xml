@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d3aababe-eb33-4138-821d-e2e7c9995e7b" name="Default Changelist" comment="">
+    <list default="true" id="d3aababe-eb33-4138-821d-e2e7c9995e7b" name="Default Changelist" comment="Imported time, added commentary, optimized setup Ui and start_cracking functions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cracker2.py" beforeDir="false" afterPath="$PROJECT_DIR$/cracker2.py" afterDir="false" />
     </list>
@@ -16,14 +16,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cracker2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="678" lean-forward="true" selection-start-line="678" selection-end-line="678" />
+            <state relative-caret-position="72">
+              <caret line="396" selection-start-line="396" selection-end-line="396" />
               <folding>
                 <element signature="e#283#322#0" expanded="true" />
                 <element signature="e#2453#2796#1" />
                 <element signature="e#2841#15855#0" />
                 <element signature="e#15906#18146#0" />
-                <element signature="e#18200#22668#0" />
                 <element signature="e#22489#27261#0" />
                 <element signature="e#27316#28572#0" />
                 <element signature="e#28639#31498#0" />
@@ -332,7 +331,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565677263541</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Imported time, added commentary, optimized setup Ui and start_cracking functions">
+      <created>1565680605567</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1565680605567</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView">
@@ -401,7 +407,8 @@
     <MESSAGE value="'something'" />
     <MESSAGE value="'Added normalize function'" />
     <MESSAGE value="'changed version name only'" />
-    <option name="LAST_COMMIT_MESSAGE" value="'changed version name only'" />
+    <MESSAGE value="Imported time, added commentary, optimized setup Ui and start_cracking functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Imported time, added commentary, optimized setup Ui and start_cracking functions" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/dict_eng.txt">
@@ -467,14 +474,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cracker2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="678" lean-forward="true" selection-start-line="678" selection-end-line="678" />
+        <state relative-caret-position="72">
+          <caret line="396" selection-start-line="396" selection-end-line="396" />
           <folding>
             <element signature="e#283#322#0" expanded="true" />
             <element signature="e#2453#2796#1" />
             <element signature="e#2841#15855#0" />
             <element signature="e#15906#18146#0" />
-            <element signature="e#18200#22668#0" />
             <element signature="e#22489#27261#0" />
             <element signature="e#27316#28572#0" />
             <element signature="e#28639#31498#0" />
