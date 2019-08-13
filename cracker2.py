@@ -851,7 +851,7 @@ class Ui_Form(Ui_MainWindow):
         self.listwidget_lengths = QtWidgets.QListWidget(self.verticalLayoutWidget_2)
         self.listwidget_lengths.setObjectName("listwidget_lengths")
         item = QtWidgets.QListWidgetItem()
-        item.setCheckState(QtCore.Qt.Checked)
+        item.setCheckState(QtCore.Qt.Unchecked)
         self.listwidget_lengths.addItem(item)
         self.verticalLayout_2.addWidget(self.listwidget_lengths)
         self.checkbox_use_dict = QtWidgets.QCheckBox(self.verticalLayoutWidget_2)
@@ -880,7 +880,7 @@ class Ui_Form(Ui_MainWindow):
         self.list_passwords.setEnabled(False)
         self.list_passwords.setObjectName("list_passwords")
         item = QtWidgets.QListWidgetItem()
-        item.setCheckState(QtCore.Qt.Checked)
+        item.setCheckState(QtCore.Qt.Unchecked)
         self.list_passwords.addItem(item)
         self.verticalLayout_3.addWidget(self.list_passwords)
         self.verticalLayout_6 = QtWidgets.QVBoxLayout()
@@ -1026,6 +1026,8 @@ class Ui_Form(Ui_MainWindow):
         #
 
         self.retranslateUi(Form)
+        self.btn_get_passwords.clicked.connect(self.get_passwords)
+        self.btn_get_passwords.clicked['bool'].connect(self.testme_1)
         self.btn_get_passwords.clicked['bool'].connect(self.list_passwords.setDisabled)
         self.btn_get_passwords.clicked['bool'].connect(self.radiobtn_auto.setDisabled)
         self.btn_get_passwords.clicked['bool'].connect(self.radiobtn_manual.setDisabled)
@@ -1033,7 +1035,7 @@ class Ui_Form(Ui_MainWindow):
         self.btn_get_passwords.clicked['bool'].connect(self.label_7.setDisabled)
         self.btn_get_passwords.clicked['bool'].connect(self.label_3.setDisabled)
         self.btn_get_passwords.clicked['bool'].connect(self.btn_check.setDisabled)
-        self.btn_get_passwords.clicked['bool'].connect(self.btn_get_passwords.setEnabled)
+        #self.btn_get_passwords.clicked['bool'].connect(self.btn_get_passwords.setEnabled)
         self.btn_cancel.clicked['bool'].connect(self.btn_get_passwords.setDisabled)
         self.btn_cancel.clicked['bool'].connect(self.radiobtn_auto.setEnabled)
         self.btn_cancel.clicked['bool'].connect(self.radiobtn_manual.setEnabled)
@@ -1101,7 +1103,7 @@ class Ui_Form(Ui_MainWindow):
         __sortingEnabled = self.listwidget_lengths.isSortingEnabled()
         self.listwidget_lengths.setSortingEnabled(False)
         item = self.listwidget_lengths.item(0)
-        item.setText(_translate("Form", "Choose everything"))
+        item.setText(_translate("Form", "Choose all"))
         self.listwidget_lengths.setSortingEnabled(__sortingEnabled)
         self.checkbox_use_dict.setText(_translate("Form", "Search only for dictionary words"))
         self.btn_get_passwords.setText(_translate("Form", "Get probable passwords"))
@@ -1207,27 +1209,24 @@ class Ui_Form(Ui_MainWindow):
             # Counting divisors and sorting from largest number of appearings to smallest
             x = Counter(list_of_divisors)
             x = sorted(x.items(), key=lambda x: x[1], reverse=True)
+            self.table_widget_keys.setWindowTitle("TABLE")
+            self.table_widget_keys.setDisabled(False)
+            self.table_widget_keys.setRowCount(len(x))
+            self.table_widget_keys.setColumnCount(2)
+            self.table_widget_keys.setHorizontalHeaderLabels (["LEN", "PoR"])
+            self.table_widget_keys.setColumnWidth(0, 42)
+            self.table_widget_keys.setColumnWidth(1, 42)
+            for i in range(len(x)):
+                self.table_widget_keys.setItem(i, 0, QTableWidgetItem(str(x[i][0])))
+                self.table_widget_keys.setItem(i, 1, QTableWidgetItem(str(x[i][1])))
 
             # Message to give probable key length values
-            message_text = ""
-            message_text = "Programme suggests " +str(suggestions) +" most probable values of key length: " + "\n"
             for i in range(suggestions):
                 item = QtWidgets.QListWidgetItem(str(x[i][0]))
                 # could be Qt.Unchecked; setting it makes the check appear
                 item.setCheckState(QtCore.Qt.Unchecked)
                 self.listwidget_lengths.addItem(item)
-                #item = QtWidgets.QListWidgetItem(self.listwidget_lengths)
-                #item.setText(str(x[i][0]))
-                #ch = QtWidgets.QCheckBox()
-                #ch.setText(str(x[i[0]]))
-                #self.listwidget_lengths.setItemWidget(ch)
-                #self.listwidget_lengths.addItem(str(x[i][0]))
-
-                message_text += str(x[i][0])
-                if i != suggestions-1:
-                    message_text += ", "
-            message_text += "\n\n" + "Remember: keys of length 3 or less are rarely chosen"
-            return message_text
+            return
 
         except Exception as e:
             print(e)
@@ -1238,7 +1237,20 @@ class Ui_Form(Ui_MainWindow):
             msgbox.setStandardButtons(QtWidgets.QMessageBox.Ok)
             msgbox.exec_()
 
-            return 0
+    def get_passwords(self):
+        try:
+            print("GETTING PASSWORDS...")
+            key_lengths = []
+            for index in range(self.listwidget_lengths.count()):
+                check_box = self.listwidget_lengths.itemWidget(self.listwidget_lengths.item(index))
+                print(check_box)
+                state = check_box.checkState()
+                print(state)
+        except Exception as e:
+            print(e)
+
+    def testme_1(self):
+        print("TESTED")
 
 if __name__ == "__main__":
     import sys
