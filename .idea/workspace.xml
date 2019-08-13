@@ -16,23 +16,79 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cracker2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="398" column="31" lean-forward="true" selection-start-line="398" selection-start-column="31" selection-end-line="398" selection-end-column="31" />
+            <state relative-caret-position="336">
+              <caret line="1228" column="40" selection-start-line="1228" selection-start-column="40" selection-end-line="1228" selection-end-column="40" />
               <folding>
                 <element signature="e#283#322#0" expanded="true" />
-                <element signature="e#2453#2796#1" />
-                <element signature="e#2841#15855#0" />
-                <element signature="e#15906#18146#0" />
-                <element signature="e#22489#27261#0" />
-                <element signature="e#27316#28572#0" />
-                <element signature="e#28639#31498#0" />
-                <element signature="e#31550#33560#0" />
-                <element signature="e#33609#35849#0" />
-                <element signature="e#35922#36444#0" />
-                <element signature="e#36479#36845#0" />
-                <element signature="e#36887#37227#0" />
-                <element signature="e#37263#37950#0" />
-                <element signature="e#58565#58759#0" />
+                <element signature="e#1251#1301#0" />
+                <element signature="e#1379#1791#0" />
+                <element signature="e#1808#1859#0" />
+                <element signature="e#1950#2316#0" />
+                <element signature="e#2485#2828#1" />
+                <element signature="e#2873#15868#0" />
+                <element signature="e#15919#18159#0" />
+                <element signature="e#18200#22442#0" />
+                <element signature="e#18200#18275#0" />
+                <element signature="e#20802#20849#0" />
+                <element signature="e#22536#27308#0" />
+                <element signature="e#22536#22733#1" />
+                <element signature="e#23039#26878#0" />
+                <element signature="e#23651#24344#0" />
+                <element signature="e#23849#23945#0" />
+                <element signature="e#24694#24821#0" />
+                <element signature="e#24966#25614#0" />
+                <element signature="e#25054#25293#0" />
+                <element signature="e#25083#25214#0" />
+                <element signature="e#25756#26119#0" />
+                <element signature="e#25920#26031#0" />
+                <element signature="e#25961#26031#0" />
+                <element signature="e#26646#26754#0" />
+                <element signature="e#26923#27308#0" />
+                <element signature="e#27378#28634#0" />
+                <element signature="e#27378#27683#1" />
+                <element signature="e#27852#28617#0" />
+                <element signature="e#27907#28511#0" />
+                <element signature="e#28269#28458#0" />
+                <element signature="e#28408#28458#0" />
+                <element signature="e#28716#31648#0" />
+                <element signature="e#28716#28828#1" />
+                <element signature="e#28966#29359#0" />
+                <element signature="e#29281#29359#0" />
+                <element signature="e#29469#31304#0" />
+                <element signature="e#29673#29785#0" />
+                <element signature="e#29875#29996#0" />
+                <element signature="e#30168#30328#0" />
+                <element signature="e#30203#30328#0" />
+                <element signature="e#31315#31359#0" />
+                <element signature="e#31700#33710#0" />
+                <element signature="e#31700#32156#1" />
+                <element signature="e#32236#32399#0" />
+                <element signature="e#32292#32341#0" />
+                <element signature="e#32489#32992#0" />
+                <element signature="e#32640#32818#0" />
+                <element signature="e#33032#33380#0" />
+                <element signature="e#33032#33097#0" />
+                <element signature="e#33424#33710#0" />
+                <element signature="e#33574#33674#0" />
+                <element signature="e#33759#35999#0" />
+                <element signature="e#33759#33886#1" />
+                <element signature="e#33912#35946#0" />
+                <element signature="e#34346#35758#0" />
+                <element signature="e#34600#35602#0" />
+                <element signature="e#34706#34812#0" />
+                <element signature="e#35231#35277#0" />
+                <element signature="e#35442#35488#0" />
+                <element signature="e#35688#35758#0" />
+                <element signature="e#35772#35806#0" />
+                <element signature="e#36072#36594#0" />
+                <element signature="e#36072#36136#1" />
+                <element signature="e#36162#36546#0" />
+                <element signature="e#36356#36457#0" />
+                <element signature="e#36629#36995#0" />
+                <element signature="e#36629#36692#1" />
+                <element signature="e#36718#36947#0" />
+                <element signature="e#37037#37377#0" />
+                <element signature="e#37037#37121#1" />
               </folding>
             </state>
           </provider>
@@ -41,15 +97,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/funcs.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+            <state relative-caret-position="1392">
+              <caret line="59" selection-start-line="59" selection-end-line="59" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <element signature="e#44#254#0" />
-                <element signature="e#277#883#0" />
-                <element signature="e#923#1503#0" />
-                <element signature="e#1534#1877#0" />
-                <element signature="e#1941#2098#0" />
               </folding>
             </state>
           </provider>
@@ -58,8 +109,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cracker v.1.8.0. new.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8314">
-              <caret line="1075" lean-forward="true" selection-start-line="1075" selection-end-line="1075" />
+            <state relative-caret-position="14640">
+              <caret line="1075" selection-start-line="1075" selection-end-line="1075" />
               <folding>
                 <element signature="e#282#321#0" expanded="true" />
                 <element signature="e#2894#11760#0" />
@@ -80,8 +131,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="8" selection-start-line="8" selection-end-line="39" selection-end-column="25" />
+            <state relative-caret-position="105">
+              <caret line="29" column="33" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -107,6 +158,9 @@
       <find>ciphergram_upper</find>
       <find>TESTING</find>
       <find>MINLEN</find>
+      <find>calc</find>
+      <find>vert`</find>
+      <find>label_8</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -118,8 +172,8 @@
         <option value="$PROJECT_DIR$/cracker v.1.8.0. new.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/funcs.py" />
-        <option value="$PROJECT_DIR$/cracker2.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
+        <option value="$PROJECT_DIR$/cracker2.py" />
       </list>
     </option>
   </component>
@@ -343,7 +397,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565682226369</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Tried to implement new window panel">
+      <created>1565686002732</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1565686002732</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView">
@@ -373,10 +434,10 @@
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32843137" />
       <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="right" x="0" y="0" width="295" height="544" id="Documentation" side_tool="true" weight="0.32980332" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" x="0" y="0" width="295" height="544" id="Documentation" order="3" side_tool="true" weight="0.32980332" />
     </layout>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -404,6 +465,20 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="'implemented basic functionality, waiting for input assembly, and connecting classes'" />
@@ -414,7 +489,8 @@
     <MESSAGE value="'changed version name only'" />
     <MESSAGE value="Imported time, added commentary, optimized setup Ui and start_cracking functions" />
     <MESSAGE value="Removed main try in start_cracking and unindented its insides" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed main try in start_cracking and unindented its insides" />
+    <MESSAGE value="Tried to implement new window panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tried to implement new window panel" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/dict_eng.txt">
@@ -438,23 +514,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/funcs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+        <state relative-caret-position="1392">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#44#254#0" />
-            <element signature="e#277#883#0" />
-            <element signature="e#923#1503#0" />
-            <element signature="e#1534#1877#0" />
-            <element signature="e#1941#2098#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cracker v.1.8.0. new.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8314">
-          <caret line="1075" lean-forward="true" selection-start-line="1075" selection-end-line="1075" />
+        <state relative-caret-position="14640">
+          <caret line="1075" selection-start-line="1075" selection-end-line="1075" />
           <folding>
             <element signature="e#282#321#0" expanded="true" />
             <element signature="e#2894#11760#0" />
@@ -473,30 +544,86 @@
     </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="8" selection-start-line="8" selection-end-line="39" selection-end-column="25" />
+        <state relative-caret-position="105">
+          <caret line="29" column="33" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cracker2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="398" column="31" lean-forward="true" selection-start-line="398" selection-start-column="31" selection-end-line="398" selection-end-column="31" />
+        <state relative-caret-position="336">
+          <caret line="1228" column="40" selection-start-line="1228" selection-start-column="40" selection-end-line="1228" selection-end-column="40" />
           <folding>
             <element signature="e#283#322#0" expanded="true" />
-            <element signature="e#2453#2796#1" />
-            <element signature="e#2841#15855#0" />
-            <element signature="e#15906#18146#0" />
-            <element signature="e#22489#27261#0" />
-            <element signature="e#27316#28572#0" />
-            <element signature="e#28639#31498#0" />
-            <element signature="e#31550#33560#0" />
-            <element signature="e#33609#35849#0" />
-            <element signature="e#35922#36444#0" />
-            <element signature="e#36479#36845#0" />
-            <element signature="e#36887#37227#0" />
-            <element signature="e#37263#37950#0" />
-            <element signature="e#58565#58759#0" />
+            <element signature="e#1251#1301#0" />
+            <element signature="e#1379#1791#0" />
+            <element signature="e#1808#1859#0" />
+            <element signature="e#1950#2316#0" />
+            <element signature="e#2485#2828#1" />
+            <element signature="e#2873#15868#0" />
+            <element signature="e#15919#18159#0" />
+            <element signature="e#18200#22442#0" />
+            <element signature="e#18200#18275#0" />
+            <element signature="e#20802#20849#0" />
+            <element signature="e#22536#27308#0" />
+            <element signature="e#22536#22733#1" />
+            <element signature="e#23039#26878#0" />
+            <element signature="e#23651#24344#0" />
+            <element signature="e#23849#23945#0" />
+            <element signature="e#24694#24821#0" />
+            <element signature="e#24966#25614#0" />
+            <element signature="e#25054#25293#0" />
+            <element signature="e#25083#25214#0" />
+            <element signature="e#25756#26119#0" />
+            <element signature="e#25920#26031#0" />
+            <element signature="e#25961#26031#0" />
+            <element signature="e#26646#26754#0" />
+            <element signature="e#26923#27308#0" />
+            <element signature="e#27378#28634#0" />
+            <element signature="e#27378#27683#1" />
+            <element signature="e#27852#28617#0" />
+            <element signature="e#27907#28511#0" />
+            <element signature="e#28269#28458#0" />
+            <element signature="e#28408#28458#0" />
+            <element signature="e#28716#31648#0" />
+            <element signature="e#28716#28828#1" />
+            <element signature="e#28966#29359#0" />
+            <element signature="e#29281#29359#0" />
+            <element signature="e#29469#31304#0" />
+            <element signature="e#29673#29785#0" />
+            <element signature="e#29875#29996#0" />
+            <element signature="e#30168#30328#0" />
+            <element signature="e#30203#30328#0" />
+            <element signature="e#31315#31359#0" />
+            <element signature="e#31700#33710#0" />
+            <element signature="e#31700#32156#1" />
+            <element signature="e#32236#32399#0" />
+            <element signature="e#32292#32341#0" />
+            <element signature="e#32489#32992#0" />
+            <element signature="e#32640#32818#0" />
+            <element signature="e#33032#33380#0" />
+            <element signature="e#33032#33097#0" />
+            <element signature="e#33424#33710#0" />
+            <element signature="e#33574#33674#0" />
+            <element signature="e#33759#35999#0" />
+            <element signature="e#33759#33886#1" />
+            <element signature="e#33912#35946#0" />
+            <element signature="e#34346#35758#0" />
+            <element signature="e#34600#35602#0" />
+            <element signature="e#34706#34812#0" />
+            <element signature="e#35231#35277#0" />
+            <element signature="e#35442#35488#0" />
+            <element signature="e#35688#35758#0" />
+            <element signature="e#35772#35806#0" />
+            <element signature="e#36072#36594#0" />
+            <element signature="e#36072#36136#1" />
+            <element signature="e#36162#36546#0" />
+            <element signature="e#36356#36457#0" />
+            <element signature="e#36629#36995#0" />
+            <element signature="e#36629#36692#1" />
+            <element signature="e#36718#36947#0" />
+            <element signature="e#37037#37377#0" />
+            <element signature="e#37037#37121#1" />
           </folding>
         </state>
       </provider>

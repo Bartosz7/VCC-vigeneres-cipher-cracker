@@ -2,7 +2,8 @@
 # Form implementation generated from reading ui file 'cracker2.ui'
 # Created by: PyQt5 UI code generator 5.12.1
 # WARNING! All changes made in this file will be lost!
-
+# SPECIAL THANKS TO: stackoverflow user: https://stackoverflow.com/users/840947/heike
+# for fixing my gui communication problem
 #########################################LIBRARIES########################################
 import os, traceback, sys, time, string
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -390,19 +391,15 @@ class Ui_MainWindow(object):
 
             # multi key mode (index: 1) / Advanced Panel
             else:
-                try:
-                    #QtWidgets.QApplication.processEvents()
-                    app = QtWidgets.QApplication(sys.argv)
-                    Form = QtWidgets.QWidget()
-                    ui = Ui_Form()
-                    ui.setupUi(Form)
-                    Form.show()
-                except Exception as e:
-                    print(e)
                 if skip == False:
-                    None
+                    repeat_result = self.subfind(new_ciphergram, MINLEN, MINCNT)
                 else:
                     None
+                self.Form = QtWidgets.QWidget()
+                ui = Ui_Form()
+                ui.setupUi(self.Form)
+                ui.create_table_2(ciphergram=new_ciphergram, repeat_result=repeat_result, suggestions=suggestions)
+                self.Form.show()
 
         except Exception as e:
             print(e)
@@ -960,24 +957,24 @@ class Ui_Form(Ui_MainWindow):
         self.table_widget_keys.setColumnCount(0)
         self.table_widget_keys.setRowCount(0)
         self.verticalLayout_5.addWidget(self.table_widget_keys)
-        self.verticalLayoutWidget_7 = QtWidgets.QWidget(Form)
-        self.verticalLayoutWidget_7.setGeometry(QtCore.QRect(9, 11, 511, 381))
-        self.verticalLayoutWidget_7.setObjectName("verticalLayoutWidget_7")
-        self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_7)
-        self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_7.setObjectName("verticalLayout_7")
-        self.label_8 = QtWidgets.QLabel(self.verticalLayoutWidget_7)
-        self.label_8.setScaledContents(False)
-        self.label_8.setObjectName("label_8")
-        self.verticalLayout_7.addWidget(self.label_8)
-        self.textBrowser = QtWidgets.QTextBrowser(self.verticalLayoutWidget_7)
-        self.textBrowser.setEnabled(True)
-        self.textBrowser.setAcceptDrops(True)
-        self.textBrowser.setInputMethodHints(QtCore.Qt.ImhLatinOnly)
-        self.textBrowser.setUndoRedoEnabled(False)
-        self.textBrowser.setOpenLinks(True)
-        self.textBrowser.setObjectName("textBrowser")
-        self.verticalLayout_7.addWidget(self.textBrowser)
+        #self.verticalLayoutWidget_7 = QtWidgets.QWidget(Form)
+        #self.verticalLayoutWidget_7.setGeometry(QtCore.QRect(9, 11, 511, 381))
+        #self.verticalLayoutWidget_7.setObjectName("verticalLayoutWidget_7")
+        #self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_7)
+        #self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
+        #self.verticalLayout_7.setObjectName("verticalLayout_7")
+        #self.label_8 = QtWidgets.QLabel(self.verticalLayoutWidget_7)
+        #self.label_8.setScaledContents(False)
+        #self.label_8.setObjectName("label_8")
+        #self.verticalLayout_7.addWidget(self.label_8)
+        #self.textBrowser = QtWidgets.QTextBrowser(self.verticalLayoutWidget_7)
+        #self.textBrowser.setEnabled(True)
+        #self.textBrowser.setAcceptDrops(True)
+        #self.textBrowser.setInputMethodHints(QtCore.Qt.ImhLatinOnly)
+        #self.textBrowser.setUndoRedoEnabled(False)
+        #self.textBrowser.setOpenLinks(True)
+        #self.textBrowser.setObjectName("textBrowser")
+        #self.verticalLayout_7.addWidget(self.textBrowser)
         self.verticalLayoutWidget_8 = QtWidgets.QWidget(Form)
         self.verticalLayoutWidget_8.setGeometry(QtCore.QRect(540, 280, 181, 111))
         self.verticalLayoutWidget_8.setObjectName("verticalLayoutWidget_8")
@@ -1039,8 +1036,8 @@ class Ui_Form(Ui_MainWindow):
 
         #
         self.progressbar_2.hide()
-        self.textBrowser.hide()
-        self.label_8.hide()
+        #self.textBrowser.hide()
+        #self.label_8.hide()
         #
 
         self.retranslateUi(Form)
@@ -1067,14 +1064,14 @@ class Ui_Form(Ui_MainWindow):
         self.btn_cancel.clicked['bool'].connect(self.checkbox_use_dict.setDisabled)
         self.btn_cancel.clicked['bool'].connect(self.label_2.setDisabled)
         self.btn_get_passwords.clicked['bool'].connect(self.label_2.setEnabled)
-        self.btn_cancel.clicked['bool'].connect(self.textBrowser.hide)
+        #self.btn_cancel.clicked['bool'].connect(self.textBrowser.hide)
         self.btn_get_passwords.clicked['bool'].connect(self.label_5.hide)
         self.btn_get_passwords.clicked['bool'].connect(self.table_widget_calc.hide)
         self.btn_get_passwords.clicked['bool'].connect(self.table_widget_keys.hide)
         self.btn_get_passwords.clicked['bool'].connect(self.label_4.hide)
-        self.btn_get_passwords.clicked['bool'].connect(self.textBrowser.show)
-        self.btn_get_passwords.clicked['bool'].connect(self.label_8.show)
-        self.btn_cancel.clicked['bool'].connect(self.label_8.hide)
+        #self.btn_get_passwords.clicked['bool'].connect(self.textBrowser.show)
+        #self.btn_get_passwords.clicked['bool'].connect(self.label_8.show)
+        #self.btn_cancel.clicked['bool'].connect(self.label_8.hide)
         self.btn_cancel.clicked['bool'].connect(self.table_widget_keys.show)
         self.btn_cancel.clicked['bool'].connect(self.table_widget_calc.show)
         self.btn_cancel.clicked['bool'].connect(self.label_4.show)
@@ -1120,16 +1117,6 @@ class Ui_Form(Ui_MainWindow):
         self.listwidget_lengths.setSortingEnabled(False)
         item = self.listwidget_lengths.item(0)
         item.setText(_translate("Form", "Choose everything"))
-        item = self.listwidget_lengths.item(1)
-        item.setText(_translate("Form", "2"))
-        item = self.listwidget_lengths.item(2)
-        item.setText(_translate("Form", "3"))
-        item = self.listwidget_lengths.item(3)
-        item.setText(_translate("Form", "5"))
-        item = self.listwidget_lengths.item(4)
-        item.setText(_translate("Form", "10"))
-        item = self.listwidget_lengths.item(5)
-        item.setText(_translate("Form", "15"))
         self.listwidget_lengths.setSortingEnabled(__sortingEnabled)
         self.checkbox_use_dict.setText(_translate("Form", "Search only for dictionary words"))
         self.btn_get_passwords.setText(_translate("Form", "Get probable passwords"))
@@ -1146,13 +1133,116 @@ class Ui_Form(Ui_MainWindow):
         self.btn_check.setText(_translate("Form", "Check"))
         self.label_4.setText(_translate("Form", "Calculation table"))
         self.label_5.setText(_translate("Form", "Possible keys"))
-        self.label_8.setText(_translate("Form", "Ciphergram"))
+        #self.label_8.setText(_translate("Form", "Ciphergram"))
         self.label_9.setText(_translate("Form", "3. Password finder"))
         self.btn_left.setText(_translate("Form", "<"))
         self.btn_right.setText(_translate("Form", ">"))
         self.line_password_static.setPlaceholderText(_translate("Form", "PASSWORD"))
         self.btn_cancel2.setText(_translate("Form", "Cancel"))
         self.btn_ok2.setText(_translate("Form", "OK"))
+
+    def create_table_2(self, ciphergram: str, repeat_result: dict, suggestions: int):
+        """
+
+        :param ciphergram: ciphered text
+        :param repeat_result: result of subfind
+        :return: create calculation table, Dialog for key input and return key_length imput
+        """
+
+        # Basics
+        new_ciphergram = ciphergram
+        repeat_keys = list(repeat_result.keys())  # list of repeating fragments
+        repeat_values = list(repeat_result.values())  # list of their appearings
+
+        print("WORKING...")
+        # Creating a Table - basic, headers and first 3 columns
+        try:
+            self.table_widget_calc.setWindowTitle("TABLE")
+            self.table_widget_calc.setDisabled(False)
+            self.table_widget_calc.setRowCount(int(len(repeat_keys)))
+            self.table_widget_calc.setColumnCount(100)  # column count option?
+            self.table_widget_calc.setHorizontalHeaderLabels(["Name", "Length", "Appearings"])
+            self.table_widget_calc.setColumnWidth(0, 100)
+            self.table_widget_calc.setColumnWidth(1, 50)
+            self.table_widget_calc.setColumnWidth(2, 80)
+            # Setting first three columns name:length:number_of_appearings
+            for X in range(int(len(repeat_keys))):
+                list_1 = find_distance(new_ciphergram, repeat_keys[X], repeat_values[X] - 1)
+                if X == 0:
+                    max_list_1_length = len(list_1)
+                else:
+                    if len(list_1) > max_list_1_length:
+                        max_list_1_length = int(len(list_1))
+                self.table_widget_calc.setItem(X, 0, QTableWidgetItem(str(repeat_keys[X])))
+                self.table_widget_calc.setItem(X, 1, QTableWidgetItem(str(len(repeat_keys[X]))))
+                self.table_widget_calc.setItem(X, 2, QTableWidgetItem(str(repeat_values[X])))
+                for Y in range(len(list_1)):
+                    self.table_widget_calc.setItem(X, Y + 3, QTableWidgetItem(str(list_1[Y])))
+
+            # Creating place for GCD column
+            max_list_1_length += 3
+            self.table_widget_calc.setHorizontalHeaderItem(max_list_1_length, QTableWidgetItem ("GCD"))
+            self.table_widget_calc.setColumnWidth(max_list_1_length, 50)
+
+            # Setting factor columns
+            for i in range(3, max_list_1_length):
+                self.table_widget_calc.setHorizontalHeaderItem(i, QTableWidgetItem("Factors"))
+                self.table_widget_calc.setColumnWidth(i, 50)
+
+            # Calculating GCDs for each row and divisors for each row's GCD
+            for row in range(0, len(repeat_keys)):
+                list_2 = []
+                for col in range(3, max_list_1_length):
+                    try:
+                        item = self.table_widget_calc.item (row, col).text()
+                        item = int(item)
+                        list_2.append(item)
+                    except Exception as e:
+                        item = None
+                row_gcd = GCD(list_2)
+                self.table_widget_calc.setItem(row, max_list_1_length, QTableWidgetItem(str(row_gcd)))
+                self.table_widget_calc.setColumnWidth(max_list_1_length + 1, 500)
+                self.table_widget_calc.setHorizontalHeaderItem(max_list_1_length + 1, QTableWidgetItem("Divisors"))
+
+            # List for storing ALL divisors
+            list_of_divisors = []
+            for i in range(len(repeat_keys)):
+                x = self.table_widget_calc.item(i, max_list_1_length).text()
+                x = int(x)
+                s = ""
+                for el in divisors(x):
+                    if int(el) != 1:
+                        s += str(el) + " "
+                        list_of_divisors.append(el)
+                self.table_widget_calc.setItem(i, max_list_1_length + 1, QTableWidgetItem(s))
+
+            # Saving memory space
+            del s, x, row_gcd
+
+            # Counting divisors and sorting from largest number of appearings to smallest
+            x = Counter(list_of_divisors)
+            x = sorted(x.items(), key=lambda x: x[1], reverse=True)
+
+            # Message to give probable key length values
+            message_text = ""
+            message_text = "Programme suggests " +str(suggestions) +" most probable values of key length: " + "\n"
+            for i in range(suggestions):
+                message_text += str(x[i][0])
+                if i != suggestions-1:
+                    message_text += ", "
+            message_text += "\n\n" + "Remember: keys of length 3 or less are rarely chosen"
+            return message_text
+
+        except Exception as e:
+            print(e)
+            msgbox = QtWidgets.QMessageBox()
+            msgbox.setIcon(QtWidgets.QMessageBox.Warning)
+            msgbox.setWindowTitle('WARNING')
+            msgbox.setText('Unfortunately, there is too little information to crack the ciphergram')
+            msgbox.setStandardButtons(QtWidgets.QMessageBox.Ok)
+            msgbox.exec_()
+
+            return 0
 
 if __name__ == "__main__":
     import sys
