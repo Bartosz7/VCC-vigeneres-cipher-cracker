@@ -853,21 +853,6 @@ class Ui_Form(Ui_MainWindow):
         item = QtWidgets.QListWidgetItem()
         item.setCheckState(QtCore.Qt.Checked)
         self.listwidget_lengths.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        item.setCheckState(QtCore.Qt.Checked)
-        self.listwidget_lengths.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        item.setCheckState(QtCore.Qt.Checked)
-        self.listwidget_lengths.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        item.setCheckState(QtCore.Qt.Checked)
-        self.listwidget_lengths.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        item.setCheckState(QtCore.Qt.Checked)
-        self.listwidget_lengths.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        item.setCheckState(QtCore.Qt.Checked)
-        self.listwidget_lengths.addItem(item)
         self.verticalLayout_2.addWidget(self.listwidget_lengths)
         self.checkbox_use_dict = QtWidgets.QCheckBox(self.verticalLayoutWidget_2)
         self.checkbox_use_dict.setChecked(True)
@@ -1227,6 +1212,17 @@ class Ui_Form(Ui_MainWindow):
             message_text = ""
             message_text = "Programme suggests " +str(suggestions) +" most probable values of key length: " + "\n"
             for i in range(suggestions):
+                item = QtWidgets.QListWidgetItem(str(x[i][0]))
+                # could be Qt.Unchecked; setting it makes the check appear
+                item.setCheckState(QtCore.Qt.Unchecked)
+                self.listwidget_lengths.addItem(item)
+                #item = QtWidgets.QListWidgetItem(self.listwidget_lengths)
+                #item.setText(str(x[i][0]))
+                #ch = QtWidgets.QCheckBox()
+                #ch.setText(str(x[i[0]]))
+                #self.listwidget_lengths.setItemWidget(ch)
+                #self.listwidget_lengths.addItem(str(x[i][0]))
+
                 message_text += str(x[i][0])
                 if i != suggestions-1:
                     message_text += ", "
