@@ -1,4 +1,5 @@
 from math import sqrt
+from statistics import stdev, mean
 
 def divisors(n):
     """
@@ -66,4 +67,11 @@ def transformer(list_1):
     """
     end = list_1.pop()    #erase end and copy it to the beginning
     list_1.insert(0, end)
+    return list_1
+
+def normalize(list_1):
+    s = stdev(list_1)
+    m = mean(list_1)
+    for i in range(len(list_1)):
+        list_1[i] = int(((list_1[i] - m) / s)*-100)
     return list_1
