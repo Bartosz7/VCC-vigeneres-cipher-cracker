@@ -10,7 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidget,QTableWidgetItem
 from datetime import datetime, timedelta
 from collections import Counter, OrderedDict
-from funcs import divisors, GCD, find_distance, transformer
+from funcs import divisors, GCD, find_distance, transformer, normalize
 from itertools import product
 import time # for TESTING only
 #########################################CONSTANTS############################################
@@ -352,6 +352,8 @@ class Ui_MainWindow(object):
         for el in ciphergram.upper():
             if el in alphabet_capital_eng:
                 new_ciphergram += el
+        global new_ciphergram2
+        new_ciphergram2 = new_ciphergram
 
         # OPTION handling
         try:
@@ -1251,7 +1253,155 @@ class Ui_Form(Ui_MainWindow):
                 print(state)
         except Exception as e:
             print(e)
+
+        # Creating passwords
+        if self.checkbox_use_dict.isChecked():
+            use_dict = True
+        else:
+            use_dict = False
+
         print(key_lengths)
+        print(use_dict)
+        passwords = []
+        for el in key_lengths:
+            passwords.append(self.decoder2(el, new_ciphergram2, 1))
+
+    def decoder2(self, key_length: int, ciphergram: str, key_mode: int):
+        """
+
+        :param key_length:
+        :param ciphergram:
+        :param key_mode:
+        :return:
+        """
+
+        password = ''
+        password_list = []
+        probability_list = []
+
+        for i in range(0, int(key_length)):
+            what_to_crack = ""
+            for i2 in range(i, int(len(ciphergram)), int(key_length)):
+                    what_to_crack += ciphergram[i2]
+            new1 = self.crack_mono2(what_to_crack, key_mode)
+            if key_mode == 0:
+                password += new1
+            else: # key_mode == 1
+                password_list.append(new1[0])
+                probability_list.append(new1[1])
+
+        if key_mode == 0:
+            return password
+
+        # if key_mode == 1:
+        try:
+            password_list = list(product(*password_list))       #all combinations
+            probability_list = list(product(*probability_list)) #all combinations
+            new_probability_list = []
+            for el in probability_list:
+                p = 1
+                for el2 in el:
+                    p *= el2
+                new_probability_list.append(p)
+
+            new_password_list = []
+            for el in password_list:
+                try:
+                    new_password_list.append(("".join(el)).lower())
+                except:
+                    None
+
+            newer_password_list = []
+            file = open("dict_eng.txt", "r")
+            data = file.read()
+            for el in new_password_list:
+                if el in data:
+                    print("ADDING")
+                    newer_password_list.append(el)
+                    QtWidgets.QApplication.processEvents()
+
+            print("Possible combinations: "+str(len(new_password_list)))
+            print("Possible passwords:    "+str(len(newer_password_list)))
+            print(newer_password_list)
+
+            brand_list = []
+            for el in newer_password_list:
+                brand_list.append(new_probability_list[newer_password_list.index(el)])
+            brand_list = sorted(brand_list)
+            print("BRAND LIST     : " + str(brand_list))
+
+            s = ""
+            super_list = []
+            for el in brand_list:
+                s += str((newer_password_list[new_probability_list.index(el)], el))+"\n"
+            # TODO: add a Dialog with option choice
+            msgbox2 = QtWidgets.QMessageBox()
+            msgbox2.setIcon(QtWidgets.QMessageBox.Information)
+            msgbox2.setWindowTitle('INFO')
+            msgbox2.setText(s)
+            msgbox2.setStandardButtons(QtWidgets.QMessageBox.Ok)
+            msgbox2.exec_()
+            return s
+            #msgBox.buttonClicked.connect(msgButtonClick)
+
+
+        # TODO: make a dialog with all possibilities
+        # 1. show possible passwords and their probability
+        # 2. let choose one / or several / or all passwords / combinations WITH WARNING OF LONG PROCESS
+        # 3. let to choose if the programme should check for us the text
+
+        except Exception as e:
+            print(e)
+
+    def crack_mono2(self, file, key_mode):
+        """
+        Cracks mono-alphabetical ciphers using method of cryptoanalytic statistical analisys
+        Statistic function finds the key by comparing frequency of chars in ciphergram to frequency of letters
+        in the language (stat_chats); monoalphabetical statistic cracker with the use of least-squares regression
+        :param file: sub-ciphergram (cipher encrypted with one transformation value)
+        :return: transformation value
+        """
+        frequency = []
+        for letter in alphabet_capital_eng:
+            counter = 0
+            for el in file:
+                if el == letter:
+                    counter += 1
+            frequency.append(round(counter/len(file), 4))
+        difference = []
+        results = []
+        for el in range(0, 26):
+            # machine adding order
+            if el != 0:
+                frequency = transformer(frequency)
+            for el2 in range(0, 26):
+                counter_2 = 0
+                counter_2 = (char_stats_eng[el2] - frequency[el2]) ** 2
+                counter_2 = round(counter_2, 4)
+                difference.append(counter_2)
+            wynik = 0
+            for ok in range(26):
+                wynik = wynik + difference[ok]
+            results.append(round(wynik, 6))
+            difference = []
+
+        if key_mode == 0:
+            # Sorting and calculating the smallest difference and nearest key
+            # Finding best mono position transformation
+            best_fit = (sorted(results))[0]
+            best_fit = results.index(best_fit)
+            # Decoding letter of key_word
+            key_char = alphabet_capital_eng[(26 - best_fit) % 26]
+            return key_char
+
+        else: # key_mode == 1
+            list_3 = []
+            list_4 = []
+            # TODO: 4 below to be changed to variable
+            for el in sorted(results)[0:4]:
+                list_4.append(el)
+                list_3.append(alphabet_capital_eng[(26 - results.index(el)) % 26])
+            return [list_3, list_4]
 
     def testme_1(self):
         print("TESTED")
