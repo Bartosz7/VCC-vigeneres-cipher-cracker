@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d3aababe-eb33-4138-821d-e2e7c9995e7b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cracker2.py" beforeDir="false" afterPath="$PROJECT_DIR$/cracker2.py" afterDir="false" />
-    </list>
+    <list default="true" id="d3aababe-eb33-4138-821d-e2e7c9995e7b" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,9 +13,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cracker2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="1034" column="80" lean-forward="true" selection-start-line="1034" selection-start-column="80" selection-end-line="1034" selection-end-column="80" />
+            <state relative-caret-position="295">
+              <caret line="787" column="54" lean-forward="true" selection-start-line="787" selection-start-column="54" selection-end-line="787" selection-end-column="54" />
               <folding>
+                <element signature="e#22625#27397#0" />
+                <element signature="e#27467#28723#0" />
                 <element signature="e#28805#31737#0" />
                 <element signature="e#31789#33799#0" />
                 <element signature="e#33848#36088#0" />
@@ -28,7 +27,6 @@
                 <element signature="e#37502#38324#0" />
                 <element signature="e#55705#57789#0" />
                 <element signature="e#57949#63335#0" />
-                <element signature="e#63403#63776#0" />
               </folding>
             </state>
           </provider>
@@ -341,7 +339,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565704690861</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="shit happens">
+      <created>1565717812064</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1565717812064</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TodoView">
@@ -355,14 +360,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.171875" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32843137" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32843137" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -429,7 +433,8 @@
     <MESSAGE value="Tried to implement new window panel" />
     <MESSAGE value="changed a lot, added create_table2" />
     <MESSAGE value="added first stage list items" />
-    <option name="LAST_COMMIT_MESSAGE" value="added first stage list items" />
+    <MESSAGE value="shit happens" />
+    <option name="LAST_COMMIT_MESSAGE" value="shit happens" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/dict_eng.txt">
@@ -490,9 +495,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cracker2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="1034" column="80" lean-forward="true" selection-start-line="1034" selection-start-column="80" selection-end-line="1034" selection-end-column="80" />
+        <state relative-caret-position="295">
+          <caret line="787" column="54" lean-forward="true" selection-start-line="787" selection-start-column="54" selection-end-line="787" selection-end-column="54" />
           <folding>
+            <element signature="e#22625#27397#0" />
+            <element signature="e#27467#28723#0" />
             <element signature="e#28805#31737#0" />
             <element signature="e#31789#33799#0" />
             <element signature="e#33848#36088#0" />
@@ -502,7 +509,6 @@
             <element signature="e#37502#38324#0" />
             <element signature="e#55705#57789#0" />
             <element signature="e#57949#63335#0" />
-            <element signature="e#63403#63776#0" />
           </folding>
         </state>
       </provider>

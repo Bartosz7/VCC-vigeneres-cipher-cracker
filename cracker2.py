@@ -395,11 +395,11 @@ class Ui_MainWindow(object):
                     repeat_result = self.subfind(new_ciphergram, MINLEN, MINCNT)
                 else:
                     None
-                self.Form = QtWidgets.QWidget()
+                self.Form = QtWidgets.QDialog()
                 ui = Ui_Form()
                 ui.setupUi(self.Form)
                 ui.create_table_2(ciphergram=new_ciphergram, repeat_result=repeat_result, suggestions=suggestions)
-                self.Form.show()
+                self.Form.exec_()
 
         except Exception as e:
             print(e)
@@ -1242,12 +1242,16 @@ class Ui_Form(Ui_MainWindow):
             print("GETTING PASSWORDS...")
             key_lengths = []
             for index in range(self.listwidget_lengths.count()):
-                check_box = self.listwidget_lengths.itemWidget(self.listwidget_lengths.item(index))
+                check_box = self.listwidget_lengths.item(index)
+                #check_box = self.listwidget_lengths.itemWidget(self.listwidget_lengths.item(index))
                 print(check_box)
                 state = check_box.checkState()
+                if state == 2 and index != 0:
+                    key_lengths.append(int(self.listwidget_lengths.item(index).text()))
                 print(state)
         except Exception as e:
             print(e)
+        print(key_lengths)
 
     def testme_1(self):
         print("TESTED")
