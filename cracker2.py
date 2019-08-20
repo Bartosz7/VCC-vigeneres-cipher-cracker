@@ -1029,7 +1029,7 @@ class Ui_Form(Ui_MainWindow):
 
         self.retranslateUi(Form)
         self.btn_get_passwords.clicked.connect(self.get_passwords)
-        self.btn_get_passwords.clicked['bool'].connect(self.testme_1)
+        #self.btn_get_passwords.clicked['bool'].connect(self.testme_1)
         self.btn_get_passwords.clicked['bool'].connect(self.list_passwords.setDisabled)
         self.btn_get_passwords.clicked['bool'].connect(self.radiobtn_auto.setDisabled)
         self.btn_get_passwords.clicked['bool'].connect(self.radiobtn_manual.setDisabled)
@@ -1094,6 +1094,7 @@ class Ui_Form(Ui_MainWindow):
         self.btn_cancel2.clicked['bool'].connect(self.label_7.setDisabled)
         self.btn_cancel2.clicked['bool'].connect(self.label_3.setDisabled)
         self.btn_cancel2.clicked['bool'].connect(self.radiobtn_manual.setDisabled)
+        self.list_passwords.doubleClicked.connect(self.testme_1)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -1265,6 +1266,17 @@ class Ui_Form(Ui_MainWindow):
         passwords = []
         for el in key_lengths:
             passwords.append(self.decoder2(el, new_ciphergram2, 1, use_dict))
+        print(passwords)
+        try:
+            for el in passwords:
+                passwords_names = list(el.keys())
+                passwords_values = list(el.values())
+                for i in range(len(passwords_names)):
+                    item = QtWidgets.QListWidgetItem(str("#" +str(passwords_values[i])+" "+str(passwords_names[i])))
+                    item.setCheckState(QtCore.Qt.Unchecked)
+                    self.list_passwords.addItem(item)
+        except Exception as e:
+            print(e)
 
     def decoder2(self, key_length: int, ciphergram: str, key_mode: int, use_dict: bool):
         """
@@ -1429,6 +1441,15 @@ class Ui_Form(Ui_MainWindow):
 
     def testme_1(self):
         print("TESTED")
+        try:
+            check = self.list_passwords.item(0).checkState()
+            for el in range(self.list_passwords.count()):
+                if check == 2 or check == 1:
+                    self.list_passwords.item(el).setCheckState(QtCore.Qt.Unchecked)
+                else:
+                    self.list_passwords.item(el).setCheckState(QtCore.Qt.Checked)
+        except Exception as e:
+            print(e)
 
 if __name__ == "__main__":
     import sys
