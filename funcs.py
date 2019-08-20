@@ -75,3 +75,11 @@ def normalize(list_1):
     for i in range(len(list_1)):
         list_1[i] = int(((list_1[i] - m) / s)*-100)
     return list_1
+
+def normalize_2(list_1):
+    s = stdev(list_1)
+    m = mean(list_1)
+    list_2 = []
+    for el in list_1:
+        list_2.append(int(((el-m)/s)*-100))
+    return list_2

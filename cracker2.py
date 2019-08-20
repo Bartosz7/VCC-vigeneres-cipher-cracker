@@ -10,7 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidget,QTableWidgetItem
 from datetime import datetime, timedelta
 from collections import Counter, OrderedDict
-from funcs import divisors, GCD, find_distance, transformer, normalize
+from funcs import divisors, GCD, find_distance, transformer, normalize, normalize_2
 from itertools import product
 import time # for TESTING only
 #########################################CONSTANTS############################################
@@ -1330,11 +1330,13 @@ class Ui_Form(Ui_MainWindow):
             brand_list = sorted(brand_list)
             print("BRAND LIST     : " + str(brand_list))
 
+            brand_list_norm = normalize_2(brand_list)
+            print("BRAND LIST: NORM: "+str(brand_list_norm))
+
             s = ""
             super_list = []
-            for el in brand_list:
-                s += str((newer_password_list[new_probability_list.index(el)], el))+"\n"
-            # TODO: add a Dialog with option choice
+            for i in range(len(brand_list)):
+                s += str(newer_password_list[new_probability_list.index(brand_list[i])] + " #" + str(brand_list_norm[i]) + "\n")
             msgbox2 = QtWidgets.QMessageBox()
             msgbox2.setIcon(QtWidgets.QMessageBox.Information)
             msgbox2.setWindowTitle('INFO')
@@ -1343,12 +1345,6 @@ class Ui_Form(Ui_MainWindow):
             msgbox2.exec_()
             return s
             #msgBox.buttonClicked.connect(msgButtonClick)
-
-
-        # TODO: make a dialog with all possibilities
-        # 1. show possible passwords and their probability
-        # 2. let choose one / or several / or all passwords / combinations WITH WARNING OF LONG PROCESS
-        # 3. let to choose if the programme should check for us the text
 
         except Exception as e:
             print(e)
