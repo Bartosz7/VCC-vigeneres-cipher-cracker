@@ -81,5 +81,28 @@ def normalize_2(list_1):
     m = mean(list_1)
     list_2 = []
     for el in list_1:
-        list_2.append(int(((el-m)/s)*-100))
+        list_2.append((((el-m)/s)*-100))
     return list_2
+
+
+def normalize_3(list_1):
+    minimum = min(list_1)
+    maximum = max(list_1)
+    length = len(list_1)
+    big = 0
+    while length > 0:
+        big += 1
+        length = length // 10
+    new_min = 0
+    new_max = 10**(big+2)
+    list_2 = []
+    for i in range(len(list_1)):
+        item = new_max - (int((list_1[i]- minimum)/(maximum - minimum)*(new_max-new_min)+new_min))
+        list_2.append(item)
+    return list_2
+
+def new_function(list_1):
+    key = list_1[0]
+    for i in range(len(list_1)):
+        list_1[i] = (key - list_1[i]) / key
+    return list_1

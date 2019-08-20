@@ -10,7 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidget,QTableWidgetItem
 from datetime import datetime, timedelta
 from collections import Counter, OrderedDict
-from funcs import divisors, GCD, find_distance, transformer, normalize, normalize_2
+from funcs import divisors, GCD, find_distance, transformer, normalize, normalize_2, normalize_3, new_function
 from itertools import product
 import time # for TESTING only
 #########################################CONSTANTS############################################
@@ -1264,9 +1264,9 @@ class Ui_Form(Ui_MainWindow):
         print(use_dict)
         passwords = []
         for el in key_lengths:
-            passwords.append(self.decoder2(el, new_ciphergram2, 1))
+            passwords.append(self.decoder2(el, new_ciphergram2, 1, use_dict))
 
-    def decoder2(self, key_length: int, ciphergram: str, key_mode: int):
+    def decoder2(self, key_length: int, ciphergram: str, key_mode: int, use_dict: bool):
         """
 
         :param key_length:
@@ -1295,56 +1295,84 @@ class Ui_Form(Ui_MainWindow):
 
         # if key_mode == 1:
         try:
-            password_list = list(product(*password_list))       #all combinations
-            probability_list = list(product(*probability_list)) #all combinations
-            new_probability_list = []
+            # Calculating all possible combinations
+            password_list = list(product(*password_list))
+            probability_list = list(product(*probability_list))
+
+            print("PASSWORD LIST: "+ str(password_list))
+            print("PROBABILITY LIST: "+str(probability_list))
+
+            # Making an indicator
+            probability_update = []
             for el in probability_list:
                 p = 1
                 for el2 in el:
                     p *= el2
-                new_probability_list.append(p)
+                probability_update.append(p)
+            probability_list = probability_update
+            del probability_update
 
-            new_password_list = []
-            for el in password_list:
-                try:
-                    new_password_list.append(("".join(el)).lower())
-                except:
-                    None
+            # Creating words (updating password_list)
+            for i in range(len(password_list)):
+                password_list[i] = (("".join(password_list[i])).lower())
 
-            newer_password_list = []
-            file = open("dict_eng.txt", "r")
-            data = file.read()
-            for el in new_password_list:
-                if el in data:
-                    print("ADDING")
-                    newer_password_list.append(el)
-                    QtWidgets.QApplication.processEvents()
+            print("PASSWORD LIST: " + str(password_list))
+            print("PROBABILITY LIST: " + str(probability_list))
 
-            print("Possible combinations: "+str(len(new_password_list)))
-            print("Possible passwords:    "+str(len(newer_password_list)))
-            print(newer_password_list)
+            # Using the dictionary to find actual words
+            ready_password_list = []
+            if use_dict == True:
+                file = open("dict_eng.txt", "r")
+                data = file.read()
+                for el in password_list:
+                    if el in data and use_dict:
+                        print("ADDING")
+                        ready_password_list.append(el)
+                        QtWidgets.QApplication.processEvents()
+            else:
+                ready_password_list = password_list
 
+            print("READY PASSWORD LIST: "+str(ready_password_list))
+            print("Possible combinations: "+str(len(password_list)))
+            print("Possible passwords:    "+str(len(ready_password_list)))
+
+            # Creating lsit with probability indicators
             brand_list = []
-            for el in newer_password_list:
-                brand_list.append(new_probability_list[newer_password_list.index(el)])
+            for el in ready_password_list:
+                brand_list.append(probability_list[ready_password_list.index(el)])
             brand_list = sorted(brand_list)
             print("BRAND LIST     : " + str(brand_list))
 
-            brand_list_norm = normalize_2(brand_list)
+            # Normalizing data (standarization)
+            use_normalization = True
+            if use_normalization:
+                brand_list_norm = normalize_3(brand_list)
+            else:
+                brand_list_norm = new_function(brand_list)
             print("BRAND LIST: NORM: "+str(brand_list_norm))
 
-            s = ""
-            super_list = []
+            # Returning value
+            #s = ""
+            return_dict = {}
             for i in range(len(brand_list)):
-                s += str(newer_password_list[new_probability_list.index(brand_list[i])] + " #" + str(brand_list_norm[i]) + "\n")
-            msgbox2 = QtWidgets.QMessageBox()
-            msgbox2.setIcon(QtWidgets.QMessageBox.Information)
-            msgbox2.setWindowTitle('INFO')
-            msgbox2.setText(s)
-            msgbox2.setStandardButtons(QtWidgets.QMessageBox.Ok)
-            msgbox2.exec_()
-            return s
-            #msgBox.buttonClicked.connect(msgButtonClick)
+                return_dict[(ready_password_list[probability_list.index(brand_list[i])])] = (brand_list_norm[i])
+                #s += str(ready_password_list[probability_list.index(brand_list[i])] + " #" + str(brand_list_norm[i]) + "\n")
+
+            # Message Box for testing only
+            testing = False
+            if testing == True:
+                msgbox2 = QtWidgets.QMessageBox ()
+                msgbox2.setIcon(QtWidgets.QMessageBox.Information)
+                msgbox2.setWindowTitle('INFO')
+                msgbox2.setText(str(return_dict))
+                msgbox2.setStandardButtons (QtWidgets.QMessageBox.Ok)
+                msgbox2.exec_()
+
+            # deleting unused data
+            del probability_list
+            del ready_password_list
+
+            return return_dict
 
         except Exception as e:
             print(e)
