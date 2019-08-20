@@ -1094,7 +1094,7 @@ class Ui_Form(Ui_MainWindow):
         self.btn_cancel2.clicked['bool'].connect(self.label_7.setDisabled)
         self.btn_cancel2.clicked['bool'].connect(self.label_3.setDisabled)
         self.btn_cancel2.clicked['bool'].connect(self.radiobtn_manual.setDisabled)
-        self.list_passwords.doubleClicked.connect(self.testme_1)
+        self.list_passwords.doubleClicked.connect(self.check_password_list)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -1439,8 +1439,7 @@ class Ui_Form(Ui_MainWindow):
                 list_3.append(alphabet_capital_eng[(26 - results.index(el)) % 26])
             return [list_3, list_4]
 
-    def testme_1(self):
-        print("TESTED")
+    def check_password_list(self):
         try:
             check = self.list_passwords.item(0).checkState()
             for el in range(self.list_passwords.count()):
