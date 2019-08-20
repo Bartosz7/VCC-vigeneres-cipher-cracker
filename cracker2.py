@@ -16,7 +16,7 @@ import time # for TESTING only
 #########################################CONSTANTS############################################
 
 # Language and version
-version = "1.9.0."
+version = "1.9.1."
 app_language = "English"
 
 # Local time / Start time of format: day-month-year hour-minute-second
@@ -276,7 +276,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "VCC 1.9.0. by Bartosz Grabek "))
+        MainWindow.setWindowTitle(_translate("MainWindow", "VCC "+str(version)+ " by Bartosz Grabek "))
         self.label.setText(_translate("MainWindow", "Ciphergram:"))
         self.groupBox_Control_Panel.setTitle(_translate("MainWindow", "Control Panel"))
         self.btn_open.setText(_translate("MainWindow", "Open"))
@@ -340,6 +340,7 @@ class Ui_MainWindow(object):
         suggestions = self.spinBox_3.value()        # how many key length to suggest
 
         # Get text for analysis
+        global ciphergram
         ciphergram = self.textBrowser.toPlainText ()
 
         # TESTING
@@ -818,6 +819,11 @@ class Ui_Form(Ui_MainWindow):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(961, 418)
+        #fake hidden label
+        self.special_label = QtWidgets.QLabel("0")
+        self.special_label.hide()
+
+        #
         self.verticalLayoutWidget = QtWidgets.QWidget(Form)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(540, 10, 411, 71))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
@@ -1020,7 +1026,8 @@ class Ui_Form(Ui_MainWindow):
         self.progressbar_2.setProperty("value", 0)
         self.progressbar_2.setAlignment(QtCore.Qt.AlignCenter)
         self.progressbar_2.setObjectName("progressbar_2")
-
+        self.list_passwords.setToolTip("Double click for 'Check all/Uncheck all'")
+        self.list_passwords.setStyleSheet("font: Courier")
         #
         self.progressbar_2.hide()
         #self.textBrowser.hide()
@@ -1029,7 +1036,8 @@ class Ui_Form(Ui_MainWindow):
 
         self.retranslateUi(Form)
         self.btn_get_passwords.clicked.connect(self.get_passwords)
-        #self.btn_get_passwords.clicked['bool'].connect(self.testme_1)
+        self.btn_check.clicked.connect(self.check_passwords)
+        self.btn_ok2.clicked.connect(self.theend)
         self.btn_get_passwords.clicked['bool'].connect(self.list_passwords.setDisabled)
         self.btn_get_passwords.clicked['bool'].connect(self.radiobtn_auto.setDisabled)
         self.btn_get_passwords.clicked['bool'].connect(self.radiobtn_manual.setDisabled)
@@ -1037,7 +1045,7 @@ class Ui_Form(Ui_MainWindow):
         self.btn_get_passwords.clicked['bool'].connect(self.label_7.setDisabled)
         self.btn_get_passwords.clicked['bool'].connect(self.label_3.setDisabled)
         self.btn_get_passwords.clicked['bool'].connect(self.btn_check.setDisabled)
-        #self.btn_get_passwords.clicked['bool'].connect(self.btn_get_passwords.setEnabled)
+        self.btn_get_passwords.clicked['bool'].connect(self.btn_get_passwords.setEnabled)
         self.btn_cancel.clicked['bool'].connect(self.btn_get_passwords.setDisabled)
         self.btn_cancel.clicked['bool'].connect(self.radiobtn_auto.setEnabled)
         self.btn_cancel.clicked['bool'].connect(self.radiobtn_manual.setEnabled)
@@ -1066,7 +1074,7 @@ class Ui_Form(Ui_MainWindow):
         self.btn_cancel.clicked['bool'].connect(self.label_4.show)
         self.btn_cancel.clicked['bool'].connect(self.label_5.show)
         self.btn_check.clicked['bool'].connect(self.label_9.setDisabled)
-        self.btn_check.clicked['bool'].connect(self.btn_left.setDisabled)
+        #self.btn_check.clicked['bool'].connect(self.btn_left.setDisabled)
         self.btn_check.clicked['bool'].connect(self.btn_right.setDisabled)
         self.btn_check.clicked['bool'].connect(self.btn_cancel2.setDisabled)
         self.btn_check.clicked['bool'].connect(self.btn_ok2.setDisabled)
@@ -1095,6 +1103,8 @@ class Ui_Form(Ui_MainWindow):
         self.btn_cancel2.clicked['bool'].connect(self.label_3.setDisabled)
         self.btn_cancel2.clicked['bool'].connect(self.radiobtn_manual.setDisabled)
         self.list_passwords.doubleClicked.connect(self.check_password_list)
+        self.btn_right.clicked['bool'].connect(self.do_right)
+        self.btn_left.clicked['bool'].connect (self.do_left)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -1242,16 +1252,14 @@ class Ui_Form(Ui_MainWindow):
 
     def get_passwords(self):
         try:
-            print("GETTING PASSWORDS...")
+            self.label_6.setText("STARTING PROCESS...")
             key_lengths = []
             for index in range(self.listwidget_lengths.count()):
                 check_box = self.listwidget_lengths.item(index)
                 #check_box = self.listwidget_lengths.itemWidget(self.listwidget_lengths.item(index))
-                print(check_box)
                 state = check_box.checkState()
                 if state == 2 and index != 0:
                     key_lengths.append(int(self.listwidget_lengths.item(index).text()))
-                print(state)
         except Exception as e:
             print(e)
 
@@ -1261,10 +1269,9 @@ class Ui_Form(Ui_MainWindow):
         else:
             use_dict = False
 
-        print(key_lengths)
-        print(use_dict)
         passwords = []
         for el in key_lengths:
+            self.label_6.setText("Checking length "+str(el))
             passwords.append(self.decoder2(el, new_ciphergram2, 1, use_dict))
         print(passwords)
         try:
@@ -1272,8 +1279,17 @@ class Ui_Form(Ui_MainWindow):
                 passwords_names = list(el.keys())
                 passwords_values = list(el.values())
                 for i in range(len(passwords_names)):
-                    item = QtWidgets.QListWidgetItem(str("#" +str(passwords_values[i])+" "+str(passwords_names[i])))
+                    adding = "#"
+                    adding += str(i+1)
+                    length_ready = 7 - len(adding)
+                    adding += " "*length_ready
+                    adding += str(passwords_names[i])
+                    length_ready = 30 - len(adding)
+                    adding += " "*length_ready+"("+str(passwords_values[i])+")"
+                    print(adding)
+                    item = QtWidgets.QListWidgetItem(adding)
                     item.setCheckState(QtCore.Qt.Unchecked)
+                    item.setFont(QtGui.QFont("Courier"))
                     self.list_passwords.addItem(item)
         except Exception as e:
             print(e)
@@ -1308,6 +1324,7 @@ class Ui_Form(Ui_MainWindow):
         # if key_mode == 1:
         try:
             # Calculating all possible combinations
+            self.label_6.setText("Creating possible passwords...")
             password_list = list(product(*password_list))
             probability_list = list(product(*probability_list))
 
@@ -1334,6 +1351,7 @@ class Ui_Form(Ui_MainWindow):
             # Using the dictionary to find actual words
             ready_password_list = []
             if use_dict == True:
+                self.label_6.setText("Searching passwords in dictionary...")
                 file = open("dict_eng.txt", "r")
                 data = file.read()
                 for el in password_list:
@@ -1449,6 +1467,126 @@ class Ui_Form(Ui_MainWindow):
                     self.list_passwords.item(el).setCheckState(QtCore.Qt.Checked)
         except Exception as e:
             print(e)
+
+    def decrypt2(self, text, password):
+        """
+
+        :param text: what to decrypt
+        :param password: with what password
+        :return: encoded text
+        """
+        try:
+            s = text
+            list_1 = [] # list_1 for result text
+
+            # getting the key word
+            key_word = password.lower()
+            key_word_len = int(len(key_word))
+
+            # num_space for preventing non-letters from being transcribed
+            num_space = 0
+
+            # boolean for controlling upper- and lowercase
+            change = False
+
+            for index in range(0, int(len(s))):
+
+                # number in the ASCII table
+                char_ascii = ord(s[index])
+
+                # checking if the char is a small letter
+                if (char_ascii >= 65 and char_ascii <= 90) or (char_ascii >= 97 and char_ascii <= 122):
+
+                    # if capital letter
+                    if char_ascii >= 65 and char_ascii <= 90:
+                        # making capitals lowercase
+                        char_ascii += 32
+                        change = True
+
+                    # attributing number of password transformations to positions of prime message
+                    rest = int((index - num_space)% key_word_len)
+
+                    #shift = (ord(key_word[rest]) - 97)
+                    n = char_ascii - (ord(key_word[rest]) - 97)
+                    # if it doesn't fit to the alphabet
+                    if not (n >= 97 and n <= 122):
+                        n = 96 - n
+                        n = 122 - n
+
+                    # checking if change to lowercase was executed and converting back to uppercase
+                    if change == True:
+                        n -= 32
+                        change = False
+
+                    # add new transformed char to the result list
+                    list_1.append(str(chr(n)))
+
+                # if char is not a letter
+                else:
+                    list_1.append(str(chr(char_ascii)))
+                    num_space += 1
+
+            # saving newly transcribed message
+            # connecting succesive chars to form complete ciphergram
+            ciphergram = "".join(list_1)
+            return ciphergram
+
+        except Exception as e:
+            print(e)
+
+    def check_passwords(self):
+        global list_in
+        list_in = []
+        for el in range(self.list_passwords.count()):
+            yes = self.list_passwords.item(el).checkState()
+            if yes != 0:
+                list_in.append(self.list_passwords.item(el).text())
+        for i in range(len(list_in)):
+            list_in[i] = list_in[i][7:30].replace(" ", "")
+
+        pom = 0
+        self.special_label.setText(str(pom))
+        self.label_6.setText(self.decrypt2(ciphergram, list_in[0]))
+        self.line_password_static.setText(list_in[pom] + " (" + str(pom+1) + "/" + str(len(list_in)) + ")")
+
+    def do_left(self):
+        try:
+            pom = int(self.special_label.text())
+            if pom > 0:
+                self.btn_right.setDisabled(False)
+                pom -= 1
+                self.line_password_static.setText (list_in[pom] + " (" + str(pom+1) + "/" + str(len(list_in)) + ")")
+                self.special_label.setText(str(pom))
+                self.label_6.setText(self.decrypt2(ciphergram, list_in[pom]))
+                if pom == 0:
+                    self.btn_left.setDisabled(True)
+        except Exception as e:
+            print(e)
+
+    def do_right(self):
+        try:
+            pom = int(self.special_label.text())
+            if pom < int(len(list_in)) and pom >= 0:
+                self.btn_left.setDisabled(False)
+                pom += 1
+                self.line_password_static.setText(list_in[pom] + " (" + str(pom+1) + "/" + str(len(list_in)) + ")")
+                self.special_label.setText(str(pom))
+                self.label_6.setText(self.decrypt2(ciphergram, list_in[pom]))
+                if pom == int(len(list_in)) - 1:
+                    self.btn_right.setDisabled(True)
+
+        except Exception as e:
+            print(e)
+
+    def theend(self):
+        try:
+            return_text = self.label_6.text()
+            Ui_MainWindow.textBrowser.setText(return_text)
+            Ui_Form.close()
+        except Exception as e:
+            print(e)
+
+
 
 if __name__ == "__main__":
     import sys

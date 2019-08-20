@@ -84,12 +84,11 @@ def normalize_2(list_1):
         list_2.append((((el-m)/s)*-100))
     return list_2
 
-
 def normalize_3(list_1):
     minimum = min(list_1)
     maximum = max(list_1)
     new_min = 0
-    new_max = 10000
+    new_max = 1000
     list_2 = []
     for i in range(len(list_1)):
         item = new_max - (int((list_1[i]- minimum)/(maximum - minimum)*(new_max-new_min)+new_min))
@@ -101,3 +100,14 @@ def new_function(list_1):
     for i in range(len(list_1)):
         list_1[i] = (key - list_1[i]) / key
     return list_1
+
+# Merging two dicts
+def Merge(dict1, dict2):
+    res = {**dict1, **dict2}
+    return res
+
+# Driver code
+#dict1 = {'a': 10, 'b': 8}
+#dict2 = {'d': 6, 'c': 4}
+#dict3 = Merge (dict1, dict2)
+#print (dict3)
