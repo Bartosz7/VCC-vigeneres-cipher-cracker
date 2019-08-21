@@ -403,6 +403,7 @@ class Ui_MainWindow(object):
                 ui.setupUi(self.Form)
                 ui.create_table_2(ciphergram=new_ciphergram, repeat_result=repeat_result, suggestions=suggestions)
                 self.Form.exec_()
+                self.textBrowser.setText(self.Form.getreturn_value())
 
         except Exception as e:
             print(e)
@@ -1580,13 +1581,10 @@ class Ui_Form(Ui_MainWindow):
 
     def theend(self):
         try:
-            return_text = self.label_6.text()
-            Ui_MainWindow.textBrowser.setText(return_text)
-            Ui_Form.close()
+            return_value = (self.label_6.text())
+            self.accept()
         except Exception as e:
             print(e)
-
-
 
 if __name__ == "__main__":
     import sys
