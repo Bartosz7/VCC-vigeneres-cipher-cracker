@@ -16,7 +16,7 @@ import time # for TESTING only
 #########################################CONSTANTS############################################
 
 # Language and version
-version = "1.9.1."
+version = "0.9.2."
 app_language = "English"
 
 # Local time / Start time of format: day-month-year hour-minute-second
